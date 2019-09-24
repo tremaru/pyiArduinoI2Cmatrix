@@ -1,5 +1,5 @@
 // Данный пример выводит изображения myImage_1 и myImage_2.      //
-#include "iarduino_I2C_Matrix_8x8.h"                             // Подключаем библиотеку для работы с LED матрицей 8x8.
+#include "../iarduino_I2C_Matrix_8x8.h"                             // Подключаем библиотеку для работы с LED матрицей 8x8.
 //#include <cstdint>
 #include <cstdlib>
 #include <iostream>
