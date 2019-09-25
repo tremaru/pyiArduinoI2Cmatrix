@@ -96,3 +96,19 @@ cdef class pyiArduinoI2Cmatrix:
             self.c_matrix.fillScr(ani)
         else:
             self.c_matrix.fillScr(0)
+
+    def invScr(self):
+        self.c_matrix.invScr()
+
+    def drawImage(self, array):
+        if isinstance(array, list):
+            b = bytearray(array)
+            self.c_matrix.drawImage(b, 0, 0)
+        else:
+            print("функция поддерживает только списки")
+
+    def getImage(self):
+        image = []
+        b = bytearray(image)
+        self.c_matrix.getImage(b)
+        return b
