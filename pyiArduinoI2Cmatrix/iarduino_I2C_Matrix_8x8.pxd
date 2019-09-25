@@ -1,6 +1,15 @@
 cdef extern from "iarduino_I2C_Matrix_8x8.cpp":
     pass
 
+cdef extern from "itoa.c":
+    pass
+
+cdef extern from "dtostrf.cpp":
+    pass
+
+cdef extern from "WString.cpp":
+    pass
+
 cdef extern from "iarduino_I2C_Matrix_8x8.h":
     cdef cppclass iarduino_I2C_Matrix_8x8:
         iarduino_I2C_Matrix_8x8() except +
@@ -10,24 +19,35 @@ cdef extern from "iarduino_I2C_Matrix_8x8.h":
         bint reset()
         unsigned char getAddress()
         unsigned char getVersion()
-        unsigned char getModel()
-        void digitalWrite(unsigned char, unsigned char)
-        unsigned char digitalRead(unsigned char)
-        void analogWrite(unsigned char, unsigned short)
-        unsigned short analogRead(unsigned char)
-        void analogAveraging(unsigned char)
-        void freqPWM(unsigned short)
-        void currentWrite(unsigned char, float)
-        void currentWrite(unsigned char, float, unsigned char&)
-        float currentRead(unsigned char)
-        void setCurrentProtection(unsigned char, float, unsigned char)
-        bint getCurrentProtection(unsigned char)
-        void delCurrentProtection(unsigned char)
-        void resCurrentProtection(unsigned char)
-        bint enableWDT(unsigned char)
-        bint disableWDT()
-        bint resetWDT()
-        bint getStateWDT()
+        unsigned char getCoding()
+        void setCoding(unsigned char)
+        void codingDetect(char*)
+        void clrScr(unsigned char)
+        void fillScr(unsigned char)
+        void invScr()
+        void drawImage(unsigned char*, unsigned char, unsigned char)
+        void getImage(unsigned char*)
+#        void print(str, unsigned char)
+        void autoScroll(unsigned char, unsigned short)
+        void scrollPos(unsigned short)
+        void scrollDir(bint)
+        void scrollMod(bint)
+        void scrollStep()
+        void setTimeIdleFirst(unsigned short)
+        void setTimeIdleLast(unsigned short)    
+        unsigned short getScroolLen() 
+        unsigned short getScroolWidth()   
+        void angle(unsigned short)          
+        void fps(unsigned char)             
+        void bright(unsigned char) 
+        void changeChar(unsigned char) 
+        void setCharWidth(unsigned char) 
+        unsigned char getCharWidth()  
+        void setCharInterval(unsigned char)    
+        unsigned char getCharInterval()    
+        void setCharIndent(unsigned char)  
+        unsigned char getCharIndent()  
+
 cdef extern from "iarduino_I2C_PI.h":
     cdef cppclass iarduino_I2C:
         void changeBus(unsigned char)
