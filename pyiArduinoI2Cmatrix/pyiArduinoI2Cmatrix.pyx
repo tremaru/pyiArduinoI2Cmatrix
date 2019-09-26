@@ -44,6 +44,9 @@ X8_IMG_ROM          =   1
 X8_TXT_CP866        =   0   
 X8_TXT_UTF8         =   1   
 X8_TXT_WIN1251      =   2   
+#функция для вывода названия переменной для ошибок
+def namestr(obj, namespace):
+    return [name for name in namespace if namespace[name] is obj]
 
 from iarduino_I2C_Matrix_8x8 cimport iarduino_I2C_Matrix_8x8
 
@@ -100,15 +103,137 @@ cdef class pyiArduinoI2Cmatrix:
     def invScr(self):
         self.c_matrix.invScr()
 
-    def drawImage(self, array):
+    def drawImage(self, array, ani = None):
         if isinstance(array, list):
             b = bytearray(array)
-            self.c_matrix.drawImage(b, 0, 0)
+            if ani is None:
+                self.c_matrix.drawImage(b, 0, 0)
+            elif isinstance(ani, int):
+                self.c_matrix.drawImage(b, ani, 0)
+            else:
+                print("неверен второй аргумент функции: "
+                      +" должен быть целым числом\n"
+                      + "вызов функции:\n"
+                      + ".drawImage(СПИСОК, ЦЕЛОЕ ЧИСЛО)")
         else:
-            print("функция поддерживает только списки")
+            print("неверен первый аргумент функции: "
+                  + " должен быть списком\n"
+                  + "вызов функции:\n"
+                  + ".drawImage(СПИСОК, [ЦЕЛОЕ ЧИСЛО])")
 
     def getImage(self):
-        image = []
+        image = [0,0,0,0,0,0,0,0]
         b = bytearray(image)
         self.c_matrix.getImage(b)
-        return b
+        image = list(b)
+        return image
+
+    def print(self, mes, ani = None):
+        """
+        Функция вывода числа или строки на матрицу.
+        ОБЪЕКТ.print(СТРОКА или ЦЕЛОЕ ЧИСЛО, [ЦЕЛОЕ ЧИСЛО])
+        Параметры:
+            параметр1: число или строка для вывода
+            параметр2: целое число - номер анимации для вывода:
+                Анимация ряби:
+                X8_EMPTY_RIPPLES
+                X8_RIPPLES
+                X8_FILLED_RIPPLES
+                Функций анимация сверху-вниз
+                X8_EMPTY_DOWN
+                X8_DOWN
+                X8_FILLED_DOWN
+                Функций анимация снизу-вверх
+                X8_EMPTY_TOP
+                X8_TOP
+                X8_FILLED_TOP
+        Пример:
+            m = pyiArduinoI2Cmatrix()
+            m.print("A", X8_RIPPLES)
+        """
+        if isinstance(mes, str):
+            b = bytearray(mes, "utf-8")
+            if ani is None:
+                self.c_matrix.print(b, 0)
+            elif isinstance(ani, int):
+                self.c_matrix.print(b, ani)
+            else:
+                print("неверен второй аргумент функции: "
+                      +" должен быть целым числом\n"
+                      + "вызов функции:\n"
+                      + ".print(СТРОКА или ЦЕЛОЕ ЧИСЛО, ЦЕЛОЕ ЧИСЛО)")
+        elif isinstance(mes, int):
+            if ani is None:
+                self.c_matrix.printNum(mes, 0)
+            elif isinstance(ani, int):
+                self.c_matrix.printNum(mes, ani)
+            else:
+                print("неверен второй аргумент функции: "
+                      +" должен быть целым числом\n"
+                      + "вызов функции:\n"
+                      + ".print(СТРОКА или ЦЕЛОЕ ЧИСЛО, ЦЕЛОЕ ЧИСЛО)")
+        else:
+            print("неверен первый аргумент функции: "
+                  + " должен быть строкой или целым числом\n"
+                  + "вызов функции:\n"
+                  + ".print(СТРОКА или ЦЕЛОЕ ЧИСЛО, [ЦЕЛОЕ ЧИСЛО])")
+
+    def autoScroll(self, speed, interval = None):
+        if interval is None:
+            self.c_matrix.autoScroll(speed, 0)
+        else:
+            self.c_matrix.autoScroll(speed, interval)
+
+    def scrollPos(self, position):
+        self.c_matrix.scrollPos(position)
+
+    def scrollDir(self, direction):
+        self.c_matrix.scrollDir(direction)
+
+    def scrollMod(self, mode):
+        self.c_matrix.scrollMod(mode)
+
+    def scrollStep(self):
+        self.c_matrix.scrollStep()
+
+    def setTimeIdleFirst(self, time):
+        self.c_matrix.setTimeIdleFirst(time)
+
+    def setTimeIdleLast(self, time):
+        self.c_matrix.setTimeIdleLast(time)
+
+    def getScroolLen(self):
+        return self.c_matrix.getScroolLen()
+
+    def getScroolWidth(self):
+        return self.c_matrix.getScroolWidth()
+
+    def angle(self, angle):
+        self.c_matrix.angle(angle)
+
+    def fps(self, fps):
+        self.c_matrix.fps(fps)
+
+    def bright(self, brightness):
+        self.c_matrix.bright(brightness)
+
+    def changeChar(self, sym):
+       self.c_matrix.changeChar(sym) 
+
+    def setCharWidth(self, width):
+       self.c_matrix.setCharWidth(width) 
+
+    def setCharInterval(self, interval):
+       self.c_matrix.setCharInterval(interval) 
+
+    def setCharIndent(self, indent):
+       self.c_matrix.setCharIndent(indent)
+
+    def getCharWidth(self):
+        return self.c_matrix.getCharWidth()
+
+    def getCharInterval(self):
+        return self.c_matrix.getCharInterval()
+
+    def getCharIndent(self):
+        return self.c_matrix.getCharIndent()

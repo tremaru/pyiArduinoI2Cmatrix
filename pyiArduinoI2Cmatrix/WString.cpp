@@ -684,7 +684,7 @@ void String::replace(const String& find, const String& replace)
 	}
 }
 
-void String::remove(unsigned int index){
+/*void String::remove(unsigned int index){
 	// Pass the biggest integer as the count. The remove method
 	// below will take care of truncating it at the end of the
 	// string.
@@ -699,7 +699,7 @@ void String::remove(unsigned int index, unsigned int count){
 	len = len - count;
 	strncpy(writeTo, buffer + index + count,len - index);
 	buffer[len] = 0;
-}
+}*/
 
 void String::toLowerCase(void)
 {

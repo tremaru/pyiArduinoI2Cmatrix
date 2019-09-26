@@ -27,6 +27,8 @@ cdef extern from "iarduino_I2C_Matrix_8x8.h":
         void invScr()
         void drawImage(unsigned char*, unsigned char, unsigned char)
         void getImage(unsigned char*)
+        void print(char*, unsigned char)
+        void printNum "print"(short, unsigned char)
 #        void print(str, unsigned char)
         void autoScroll(unsigned char, unsigned short)
         void scrollPos(unsigned short)
