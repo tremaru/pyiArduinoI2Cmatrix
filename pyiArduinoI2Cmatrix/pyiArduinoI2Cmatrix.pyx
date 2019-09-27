@@ -45,10 +45,9 @@ X8_TXT_CP866        =   0
 X8_TXT_UTF8         =   1   
 X8_TXT_WIN1251      =   2   
 #функция для вывода названия переменной для ошибок
-def namestr(obj, namespace):
-    return [name for name in namespace if namespace[name] is obj]
 
 from iarduino_I2C_Matrix_8x8 cimport iarduino_I2C_Matrix_8x8
+from time import sleep
 
 cdef class pyiArduinoI2Cmatrix:
     cdef iarduino_I2C_Matrix_8x8 c_matrix
@@ -56,9 +55,11 @@ cdef class pyiArduinoI2Cmatrix:
     def __cinit__(self, address=None):
         if address is not None:
             self.c_matrix = iarduino_I2C_Matrix_8x8(address)
+            sleep(.5)
             self.c_matrix.begin()
         else:
             self.c_matrix = iarduino_I2C_Matrix_8x8()
+            sleep(.5)
             self.c_matrix.begin()
 
     def begin(self):

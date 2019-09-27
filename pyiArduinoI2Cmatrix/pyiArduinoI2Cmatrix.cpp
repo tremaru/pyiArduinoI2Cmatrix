@@ -856,8 +856,8 @@ static const char *__pyx_f[] = {
 /*--- Type declarations ---*/
 struct __pyx_obj_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_pyiArduinoI2Cmatrix;
 
-/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":53
- * from iarduino_I2C_Matrix_8x8 cimport iarduino_I2C_Matrix_8x8
+/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":52
+ * from time import sleep
  * 
  * cdef class pyiArduinoI2Cmatrix:             # <<<<<<<<<<<<<<
  *     cdef iarduino_I2C_Matrix_8x8 c_matrix
@@ -943,10 +943,6 @@ static CYTHON_INLINE PyObject* __Pyx_PyObject_GetAttrStr(PyObject* obj, PyObject
 /* GetBuiltinName.proto */
 static PyObject *__Pyx_GetBuiltinName(PyObject *name);
 
-/* RaiseArgTupleInvalid.proto */
-static void __Pyx_RaiseArgtupleInvalid(const char* func_name, int exact,
-    Py_ssize_t num_min, Py_ssize_t num_max, Py_ssize_t num_found);
-
 /* RaiseDoubleKeywords.proto */
 static void __Pyx_RaiseDoubleKeywordsError(const char* func_name, PyObject* kw_name);
 
@@ -955,50 +951,55 @@ static int __Pyx_ParseOptionalKeywords(PyObject *kwds, PyObject **argnames[],\
     PyObject *kwds2, PyObject *values[], Py_ssize_t num_pos_args,\
     const char* function_name);
 
-/* GetItemInt.proto */
-#define __Pyx_GetItemInt(o, i, type, is_signed, to_py_func, is_list, wraparound, boundscheck)\
-    (__Pyx_fits_Py_ssize_t(i, type, is_signed) ?\
-    __Pyx_GetItemInt_Fast(o, (Py_ssize_t)i, is_list, wraparound, boundscheck) :\
-    (is_list ? (PyErr_SetString(PyExc_IndexError, "list index out of range"), (PyObject*)NULL) :\
-               __Pyx_GetItemInt_Generic(o, to_py_func(i))))
-#define __Pyx_GetItemInt_List(o, i, type, is_signed, to_py_func, is_list, wraparound, boundscheck)\
-    (__Pyx_fits_Py_ssize_t(i, type, is_signed) ?\
-    __Pyx_GetItemInt_List_Fast(o, (Py_ssize_t)i, wraparound, boundscheck) :\
-    (PyErr_SetString(PyExc_IndexError, "list index out of range"), (PyObject*)NULL))
-static CYTHON_INLINE PyObject *__Pyx_GetItemInt_List_Fast(PyObject *o, Py_ssize_t i,
-                                                              int wraparound, int boundscheck);
-#define __Pyx_GetItemInt_Tuple(o, i, type, is_signed, to_py_func, is_list, wraparound, boundscheck)\
-    (__Pyx_fits_Py_ssize_t(i, type, is_signed) ?\
-    __Pyx_GetItemInt_Tuple_Fast(o, (Py_ssize_t)i, wraparound, boundscheck) :\
-    (PyErr_SetString(PyExc_IndexError, "tuple index out of range"), (PyObject*)NULL))
-static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Tuple_Fast(PyObject *o, Py_ssize_t i,
-                                                              int wraparound, int boundscheck);
-static PyObject *__Pyx_GetItemInt_Generic(PyObject *o, PyObject* j);
-static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Fast(PyObject *o, Py_ssize_t i,
-                                                     int is_list, int wraparound, int boundscheck);
+/* RaiseArgTupleInvalid.proto */
+static void __Pyx_RaiseArgtupleInvalid(const char* func_name, int exact,
+    Py_ssize_t num_min, Py_ssize_t num_max, Py_ssize_t num_found);
 
-/* ObjectGetItem.proto */
-#if CYTHON_USE_TYPE_SLOTS
-static CYTHON_INLINE PyObject *__Pyx_PyObject_GetItem(PyObject *obj, PyObject* key);
+/* PyDictVersioning.proto */
+#if CYTHON_USE_DICT_VERSIONS && CYTHON_USE_TYPE_SLOTS
+#define __PYX_DICT_VERSION_INIT  ((PY_UINT64_T) -1)
+#define __PYX_GET_DICT_VERSION(dict)  (((PyDictObject*)(dict))->ma_version_tag)
+#define __PYX_UPDATE_DICT_CACHE(dict, value, cache_var, version_var)\
+    (version_var) = __PYX_GET_DICT_VERSION(dict);\
+    (cache_var) = (value);
+#define __PYX_PY_DICT_LOOKUP_IF_MODIFIED(VAR, DICT, LOOKUP) {\
+    static PY_UINT64_T __pyx_dict_version = 0;\
+    static PyObject *__pyx_dict_cached_value = NULL;\
+    if (likely(__PYX_GET_DICT_VERSION(DICT) == __pyx_dict_version)) {\
+        (VAR) = __pyx_dict_cached_value;\
+    } else {\
+        (VAR) = __pyx_dict_cached_value = (LOOKUP);\
+        __pyx_dict_version = __PYX_GET_DICT_VERSION(DICT);\
+    }\
+}
+static CYTHON_INLINE PY_UINT64_T __Pyx_get_tp_dict_version(PyObject *obj);
+static CYTHON_INLINE PY_UINT64_T __Pyx_get_object_dict_version(PyObject *obj);
+static CYTHON_INLINE int __Pyx_object_dict_version_matches(PyObject* obj, PY_UINT64_T tp_dict_version, PY_UINT64_T obj_dict_version);
 #else
-#define __Pyx_PyObject_GetItem(obj, key)  PyObject_GetItem(obj, key)
+#define __PYX_GET_DICT_VERSION(dict)  (0)
+#define __PYX_UPDATE_DICT_CACHE(dict, value, cache_var, version_var)
+#define __PYX_PY_DICT_LOOKUP_IF_MODIFIED(VAR, DICT, LOOKUP)  (VAR) = (LOOKUP);
 #endif
 
-/* ListCompAppend.proto */
-#if CYTHON_USE_PYLIST_INTERNALS && CYTHON_ASSUME_SAFE_MACROS
-static CYTHON_INLINE int __Pyx_ListComp_Append(PyObject* list, PyObject* x) {
-    PyListObject* L = (PyListObject*) list;
-    Py_ssize_t len = Py_SIZE(list);
-    if (likely(L->allocated > len)) {
-        Py_INCREF(x);
-        PyList_SET_ITEM(list, len, x);
-        Py_SIZE(list) = len+1;
-        return 0;
-    }
-    return PyList_Append(list, x);
+/* GetModuleGlobalName.proto */
+#if CYTHON_USE_DICT_VERSIONS
+#define __Pyx_GetModuleGlobalName(var, name)  {\
+    static PY_UINT64_T __pyx_dict_version = 0;\
+    static PyObject *__pyx_dict_cached_value = NULL;\
+    (var) = (likely(__pyx_dict_version == __PYX_GET_DICT_VERSION(__pyx_d))) ?\
+        (likely(__pyx_dict_cached_value) ? __Pyx_NewRef(__pyx_dict_cached_value) : __Pyx_GetBuiltinName(name)) :\
+        __Pyx__GetModuleGlobalName(name, &__pyx_dict_version, &__pyx_dict_cached_value);\
 }
+#define __Pyx_GetModuleGlobalNameUncached(var, name)  {\
+    PY_UINT64_T __pyx_dict_version;\
+    PyObject *__pyx_dict_cached_value;\
+    (var) = __Pyx__GetModuleGlobalName(name, &__pyx_dict_version, &__pyx_dict_cached_value);\
+}
+static PyObject *__Pyx__GetModuleGlobalName(PyObject *name, PY_UINT64_T *dict_version, PyObject **dict_cached_value);
 #else
-#define __Pyx_ListComp_Append(L,x) PyList_Append(L,x)
+#define __Pyx_GetModuleGlobalName(var, name)  (var) = __Pyx__GetModuleGlobalName(name)
+#define __Pyx_GetModuleGlobalNameUncached(var, name)  (var) = __Pyx__GetModuleGlobalName(name)
+static CYTHON_INLINE PyObject *__Pyx__GetModuleGlobalName(PyObject *name);
 #endif
 
 /* PyCFunctionFastCall.proto */
@@ -1105,31 +1106,11 @@ static PyObject* __Pyx_PyObject_GenericGetAttr(PyObject* obj, PyObject* attr_nam
 /* SetupReduce.proto */
 static int __Pyx_setup_reduce(PyObject* type_obj);
 
-/* PyDictVersioning.proto */
-#if CYTHON_USE_DICT_VERSIONS && CYTHON_USE_TYPE_SLOTS
-#define __PYX_DICT_VERSION_INIT  ((PY_UINT64_T) -1)
-#define __PYX_GET_DICT_VERSION(dict)  (((PyDictObject*)(dict))->ma_version_tag)
-#define __PYX_UPDATE_DICT_CACHE(dict, value, cache_var, version_var)\
-    (version_var) = __PYX_GET_DICT_VERSION(dict);\
-    (cache_var) = (value);
-#define __PYX_PY_DICT_LOOKUP_IF_MODIFIED(VAR, DICT, LOOKUP) {\
-    static PY_UINT64_T __pyx_dict_version = 0;\
-    static PyObject *__pyx_dict_cached_value = NULL;\
-    if (likely(__PYX_GET_DICT_VERSION(DICT) == __pyx_dict_version)) {\
-        (VAR) = __pyx_dict_cached_value;\
-    } else {\
-        (VAR) = __pyx_dict_cached_value = (LOOKUP);\
-        __pyx_dict_version = __PYX_GET_DICT_VERSION(DICT);\
-    }\
-}
-static CYTHON_INLINE PY_UINT64_T __Pyx_get_tp_dict_version(PyObject *obj);
-static CYTHON_INLINE PY_UINT64_T __Pyx_get_object_dict_version(PyObject *obj);
-static CYTHON_INLINE int __Pyx_object_dict_version_matches(PyObject* obj, PY_UINT64_T tp_dict_version, PY_UINT64_T obj_dict_version);
-#else
-#define __PYX_GET_DICT_VERSION(dict)  (0)
-#define __PYX_UPDATE_DICT_CACHE(dict, value, cache_var, version_var)
-#define __PYX_PY_DICT_LOOKUP_IF_MODIFIED(VAR, DICT, LOOKUP)  (VAR) = (LOOKUP);
-#endif
+/* Import.proto */
+static PyObject *__Pyx_Import(PyObject *name, PyObject *from_list, int level);
+
+/* ImportFrom.proto */
+static PyObject* __Pyx_ImportFrom(PyObject* module, PyObject* name);
 
 /* CLineInTraceback.proto */
 #ifdef CYTHON_CLINE_IN_TRACEBACK
@@ -1260,21 +1241,21 @@ static PyObject *__pyx_builtin_TypeError;
 static const char __pyx_k_[] = "\320\276\321\210\320\270\320\261\320\272\320\260: \321\204\321\203\320\275\320\272\321\206\320\270\321\217 \320\277\321\200\320\270\320\275\320\270\320\274\320\265\321\202 \321\202\320\276\320\273\321\214\320\272\320\276 \320\261\321\203\320\272\320\262\321\203 '\320\277'";
 static const char __pyx_k_ani[] = "ani";
 static const char __pyx_k_mes[] = "mes";
-static const char __pyx_k_obj[] = "obj";
 static const char __pyx_k_main[] = "__main__";
 static const char __pyx_k_name[] = "__name__";
 static const char __pyx_k_test[] = "__test__";
+static const char __pyx_k_time[] = "time";
 static const char __pyx_k_array[] = "array";
 static const char __pyx_k_print[] = "print";
+static const char __pyx_k_sleep[] = "sleep";
 static const char __pyx_k_speed[] = "speed";
 static const char __pyx_k_utf_8[] = "utf-8";
 static const char __pyx_k_X8_TOP[] = "X8_TOP";
 static const char __pyx_k_encode[] = "encode";
-static const char __pyx_k_name_2[] = "name";
+static const char __pyx_k_import[] = "__import__";
 static const char __pyx_k_reduce[] = "__reduce__";
 static const char __pyx_k_X8_DOWN[] = "X8_DOWN";
 static const char __pyx_k_address[] = "address";
-static const char __pyx_k_namestr[] = "namestr";
 static const char __pyx_k_print_2[] = "\320\275\320\265\320\262\320\265\321\200\320\265\320\275 \320\262\321\202\320\276\321\200\320\276\320\271 \320\260\321\200\320\263\321\203\320\274\320\265\320\275\321\202 \321\204\321\203\320\275\320\272\321\206\320\270\320\270:  \320\264\320\276\320\273\320\266\320\265\320\275 \320\261\321\213\321\202\321\214 \321\206\320\265\320\273\321\213\320\274 \321\207\320\270\321\201\320\273\320\276\320\274\n\320\262\321\213\320\267\320\276\320\262 \321\204\321\203\320\275\320\272\321\206\320\270\320\270:\n.print(\320\241\320\242\320\240\320\236\320\232\320\220 \320\270\320\273\320\270 \320\246\320\225\320\233\320\236\320\225 \320\247\320\230\320\241\320\233\320\236, \320\246\320\225\320\233\320\236\320\225 \320\247\320\230\320\241\320\233\320\236)";
 static const char __pyx_k_print_3[] = "\320\275\320\265\320\262\320\265\321\200\320\265\320\275 \320\277\320\265\321\200\320\262\321\213\320\271 \320\260\321\200\320\263\321\203\320\274\320\265\320\275\321\202 \321\204\321\203\320\275\320\272\321\206\320\270\320\270:  \320\264\320\276\320\273\320\266\320\265\320\275 \320\261\321\213\321\202\321\214 \321\201\321\202\321\200\320\276\320\272\320\276\320\271 \320\270\320\273\320\270 \321\206\320\265\320\273\321\213\320\274 \321\207\320\270\321\201\320\273\320\276\320\274\n\320\262\321\213\320\267\320\276\320\262 \321\204\321\203\320\275\320\272\321\206\320\270\320\270:\n.print(\320\241\320\242\320\240\320\236\320\232\320\220 \320\270\320\273\320\270 \320\246\320\225\320\233\320\236\320\225 \320\247\320\230\320\241\320\233\320\236, [\320\246\320\225\320\233\320\236\320\225 \320\247\320\230\320\241\320\233\320\236])";
 static const char __pyx_k_getstate[] = "__getstate__";
@@ -1283,7 +1264,6 @@ static const char __pyx_k_setstate[] = "__setstate__";
 static const char __pyx_k_REG_MODEL[] = "REG_MODEL";
 static const char __pyx_k_TypeError[] = "TypeError";
 static const char __pyx_k_drawImage[] = "\320\275\320\265\320\262\320\265\321\200\320\265\320\275 \320\262\321\202\320\276\321\200\320\276\320\271 \320\260\321\200\320\263\321\203\320\274\320\265\320\275\321\202 \321\204\321\203\320\275\320\272\321\206\320\270\320\270:  \320\264\320\276\320\273\320\266\320\265\320\275 \320\261\321\213\321\202\321\214 \321\206\320\265\320\273\321\213\320\274 \321\207\320\270\321\201\320\273\320\276\320\274\n\320\262\321\213\320\267\320\276\320\262 \321\204\321\203\320\275\320\272\321\206\320\270\320\270:\n.drawImage(\320\241\320\237\320\230\320\241\320\236\320\232, \320\246\320\225\320\233\320\236\320\225 \320\247\320\230\320\241\320\233\320\236)";
-static const char __pyx_k_namespace[] = "namespace";
 static const char __pyx_k_reduce_ex[] = "__reduce_ex__";
 static const char __pyx_k_REG_BITS_0[] = "REG_BITS_0";
 static const char __pyx_k_REG_BITS_1[] = "REG_BITS_1";
@@ -1324,9 +1304,7 @@ static const char __pyx_k_REG_8X8_TIME_START[] = "REG_8X8_TIME_START";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
 static const char __pyx_k_pyiArduinoI2Cmatrix[] = "pyiArduinoI2Cmatrix";
 static const char __pyx_k_REG_8X8_SYMBOL_INPUT[] = "REG_8X8_SYMBOL_INPUT";
-static const char __pyx_k_pyiArduinoI2Cmatrix_pyx[] = "pyiArduinoI2Cmatrix.pyx";
 static const char __pyx_k_no_default___reduce___due_to_non[] = "no default __reduce__ due to non-trivial __cinit__";
-static const char __pyx_k_pyiArduinoI2Cmatrix_pyiArduinoI2[] = "pyiArduinoI2Cmatrix.pyiArduinoI2Cmatrix";
 static PyObject *__pyx_kp_u_;
 static PyObject *__pyx_n_s_DEF_CHIP_ID_FLASH;
 static PyObject *__pyx_n_s_DEF_CHIP_ID_METRO;
@@ -1374,30 +1352,26 @@ static PyObject *__pyx_kp_u_drawImage;
 static PyObject *__pyx_kp_u_drawImage_2;
 static PyObject *__pyx_n_s_encode;
 static PyObject *__pyx_n_s_getstate;
+static PyObject *__pyx_n_s_import;
 static PyObject *__pyx_n_s_interval;
 static PyObject *__pyx_n_s_main;
 static PyObject *__pyx_n_s_mes;
 static PyObject *__pyx_n_s_name;
-static PyObject *__pyx_n_s_name_2;
-static PyObject *__pyx_n_s_namespace;
-static PyObject *__pyx_n_s_namestr;
 static PyObject *__pyx_kp_s_no_default___reduce___due_to_non;
-static PyObject *__pyx_n_s_obj;
 static PyObject *__pyx_n_s_print;
 static PyObject *__pyx_kp_u_print_2;
 static PyObject *__pyx_kp_u_print_3;
 static PyObject *__pyx_n_s_pyiArduinoI2Cmatrix;
-static PyObject *__pyx_n_s_pyiArduinoI2Cmatrix_pyiArduinoI2;
-static PyObject *__pyx_kp_s_pyiArduinoI2Cmatrix_pyx;
 static PyObject *__pyx_n_s_reduce;
 static PyObject *__pyx_n_s_reduce_cython;
 static PyObject *__pyx_n_s_reduce_ex;
 static PyObject *__pyx_n_s_setstate;
 static PyObject *__pyx_n_s_setstate_cython;
+static PyObject *__pyx_n_s_sleep;
 static PyObject *__pyx_n_s_speed;
 static PyObject *__pyx_n_s_test;
+static PyObject *__pyx_n_s_time;
 static PyObject *__pyx_kp_u_utf_8;
-static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_namestr(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_obj, PyObject *__pyx_v_namespace); /* proto */
 static int __pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix___cinit__(struct __pyx_obj_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_pyiArduinoI2Cmatrix *__pyx_v_self, PyObject *__pyx_v_address); /* proto */
 static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_2begin(struct __pyx_obj_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_pyiArduinoI2Cmatrix *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_4changeAddress(struct __pyx_obj_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_pyiArduinoI2Cmatrix *__pyx_v_self, unsigned char __pyx_v_newAddr); /* proto */
@@ -1435,6 +1409,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
 static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_68__reduce_cython__(CYTHON_UNUSED struct __pyx_obj_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_pyiArduinoI2Cmatrix *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_70__setstate_cython__(CYTHON_UNUSED struct __pyx_obj_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_pyiArduinoI2Cmatrix *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v___pyx_state); /* proto */
 static PyObject *__pyx_tp_new_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_pyiArduinoI2Cmatrix(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
+static PyObject *__pyx_float__5;
 static PyObject *__pyx_int_0;
 static PyObject *__pyx_int_1;
 static PyObject *__pyx_int_2;
@@ -1473,189 +1448,9 @@ static PyObject *__pyx_tuple__5;
 static PyObject *__pyx_tuple__6;
 static PyObject *__pyx_tuple__7;
 static PyObject *__pyx_tuple__8;
-static PyObject *__pyx_tuple__9;
-static PyObject *__pyx_codeobj__10;
 /* Late includes */
 
-/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":48
- * X8_TXT_WIN1251      =   2
- * #
- * def namestr(obj, namespace):             # <<<<<<<<<<<<<<
- *     return [name for name in namespace if namespace[name] is obj]
- * 
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_1namestr(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_1namestr = {"namestr", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_1namestr, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_1namestr(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
-  PyObject *__pyx_v_obj = 0;
-  PyObject *__pyx_v_namespace = 0;
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("namestr (wrapper)", 0);
-  {
-    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_obj,&__pyx_n_s_namespace,0};
-    PyObject* values[2] = {0,0};
-    if (unlikely(__pyx_kwds)) {
-      Py_ssize_t kw_args;
-      const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
-      switch (pos_args) {
-        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
-        CYTHON_FALLTHROUGH;
-        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
-        CYTHON_FALLTHROUGH;
-        case  0: break;
-        default: goto __pyx_L5_argtuple_error;
-      }
-      kw_args = PyDict_Size(__pyx_kwds);
-      switch (pos_args) {
-        case  0:
-        if (likely((values[0] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_obj)) != 0)) kw_args--;
-        else goto __pyx_L5_argtuple_error;
-        CYTHON_FALLTHROUGH;
-        case  1:
-        if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_namespace)) != 0)) kw_args--;
-        else {
-          __Pyx_RaiseArgtupleInvalid("namestr", 1, 2, 2, 1); __PYX_ERR(0, 48, __pyx_L3_error)
-        }
-      }
-      if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "namestr") < 0)) __PYX_ERR(0, 48, __pyx_L3_error)
-      }
-    } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
-      goto __pyx_L5_argtuple_error;
-    } else {
-      values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
-      values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
-    }
-    __pyx_v_obj = values[0];
-    __pyx_v_namespace = values[1];
-  }
-  goto __pyx_L4_argument_unpacking_done;
-  __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("namestr", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 48, __pyx_L3_error)
-  __pyx_L3_error:;
-  __Pyx_AddTraceback("pyiArduinoI2Cmatrix.pyiArduinoI2Cmatrix.namestr", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __Pyx_RefNannyFinishContext();
-  return NULL;
-  __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_namestr(__pyx_self, __pyx_v_obj, __pyx_v_namespace);
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_namestr(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_obj, PyObject *__pyx_v_namespace) {
-  PyObject *__pyx_7genexpr__pyx_v_name = NULL;
-  PyObject *__pyx_r = NULL;
-  __Pyx_RefNannyDeclarations
-  PyObject *__pyx_t_1 = NULL;
-  PyObject *__pyx_t_2 = NULL;
-  Py_ssize_t __pyx_t_3;
-  PyObject *(*__pyx_t_4)(PyObject *);
-  PyObject *__pyx_t_5 = NULL;
-  int __pyx_t_6;
-  int __pyx_t_7;
-  __Pyx_RefNannySetupContext("namestr", 0);
-
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":49
- * #
- * def namestr(obj, namespace):
- *     return [name for name in namespace if namespace[name] is obj]             # <<<<<<<<<<<<<<
- * 
- * from iarduino_I2C_Matrix_8x8 cimport iarduino_I2C_Matrix_8x8
- */
-  __Pyx_XDECREF(__pyx_r);
-  { /* enter inner scope */
-    __pyx_t_1 = PyList_New(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 49, __pyx_L5_error)
-    __Pyx_GOTREF(__pyx_t_1);
-    if (likely(PyList_CheckExact(__pyx_v_namespace)) || PyTuple_CheckExact(__pyx_v_namespace)) {
-      __pyx_t_2 = __pyx_v_namespace; __Pyx_INCREF(__pyx_t_2); __pyx_t_3 = 0;
-      __pyx_t_4 = NULL;
-    } else {
-      __pyx_t_3 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_v_namespace); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 49, __pyx_L5_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_4 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 49, __pyx_L5_error)
-    }
-    for (;;) {
-      if (likely(!__pyx_t_4)) {
-        if (likely(PyList_CheckExact(__pyx_t_2))) {
-          if (__pyx_t_3 >= PyList_GET_SIZE(__pyx_t_2)) break;
-          #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_5 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_5); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 49, __pyx_L5_error)
-          #else
-          __pyx_t_5 = PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 49, __pyx_L5_error)
-          __Pyx_GOTREF(__pyx_t_5);
-          #endif
-        } else {
-          if (__pyx_t_3 >= PyTuple_GET_SIZE(__pyx_t_2)) break;
-          #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_5 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_3); __Pyx_INCREF(__pyx_t_5); __pyx_t_3++; if (unlikely(0 < 0)) __PYX_ERR(0, 49, __pyx_L5_error)
-          #else
-          __pyx_t_5 = PySequence_ITEM(__pyx_t_2, __pyx_t_3); __pyx_t_3++; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 49, __pyx_L5_error)
-          __Pyx_GOTREF(__pyx_t_5);
-          #endif
-        }
-      } else {
-        __pyx_t_5 = __pyx_t_4(__pyx_t_2);
-        if (unlikely(!__pyx_t_5)) {
-          PyObject* exc_type = PyErr_Occurred();
-          if (exc_type) {
-            if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-            else __PYX_ERR(0, 49, __pyx_L5_error)
-          }
-          break;
-        }
-        __Pyx_GOTREF(__pyx_t_5);
-      }
-      __Pyx_XDECREF_SET(__pyx_7genexpr__pyx_v_name, __pyx_t_5);
-      __pyx_t_5 = 0;
-      __pyx_t_5 = __Pyx_PyObject_GetItem(__pyx_v_namespace, __pyx_7genexpr__pyx_v_name); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 49, __pyx_L5_error)
-      __Pyx_GOTREF(__pyx_t_5);
-      __pyx_t_6 = (__pyx_t_5 == __pyx_v_obj);
-      __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-      __pyx_t_7 = (__pyx_t_6 != 0);
-      if (__pyx_t_7) {
-        if (unlikely(__Pyx_ListComp_Append(__pyx_t_1, (PyObject*)__pyx_7genexpr__pyx_v_name))) __PYX_ERR(0, 49, __pyx_L5_error)
-      }
-    }
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __Pyx_XDECREF(__pyx_7genexpr__pyx_v_name); __pyx_7genexpr__pyx_v_name = 0;
-    goto __pyx_L9_exit_scope;
-    __pyx_L5_error:;
-    __Pyx_XDECREF(__pyx_7genexpr__pyx_v_name); __pyx_7genexpr__pyx_v_name = 0;
-    goto __pyx_L1_error;
-    __pyx_L9_exit_scope:;
-  } /* exit inner scope */
-  __pyx_r = __pyx_t_1;
-  __pyx_t_1 = 0;
-  goto __pyx_L0;
-
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":48
- * X8_TXT_WIN1251      =   2
- * #
- * def namestr(obj, namespace):             # <<<<<<<<<<<<<<
- *     return [name for name in namespace if namespace[name] is obj]
- * 
- */
-
-  /* function exit code */
-  __pyx_L1_error:;
-  __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_XDECREF(__pyx_t_2);
-  __Pyx_XDECREF(__pyx_t_5);
-  __Pyx_AddTraceback("pyiArduinoI2Cmatrix.pyiArduinoI2Cmatrix.namestr", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
-  __pyx_L0:;
-  __Pyx_XDECREF(__pyx_7genexpr__pyx_v_name);
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":56
+/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":55
  *     cdef iarduino_I2C_Matrix_8x8 c_matrix
  * 
  *     def __cinit__(self, address=None):             # <<<<<<<<<<<<<<
@@ -1692,7 +1487,7 @@ static int __pyx_pw_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cm
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__cinit__") < 0)) __PYX_ERR(0, 56, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__cinit__") < 0)) __PYX_ERR(0, 55, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -1706,7 +1501,7 @@ static int __pyx_pw_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cm
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__cinit__", 0, 0, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 56, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__cinit__", 0, 0, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 55, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pyiArduinoI2Cmatrix.pyiArduinoI2Cmatrix.pyiArduinoI2Cmatrix.__cinit__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -1726,50 +1521,79 @@ static int __pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cm
   int __pyx_t_2;
   unsigned char __pyx_t_3;
   iarduino_I2C_Matrix_8x8 __pyx_t_4;
+  PyObject *__pyx_t_5 = NULL;
+  PyObject *__pyx_t_6 = NULL;
+  PyObject *__pyx_t_7 = NULL;
   __Pyx_RefNannySetupContext("__cinit__", 0);
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":57
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":56
  * 
  *     def __cinit__(self, address=None):
  *         if address is not None:             # <<<<<<<<<<<<<<
  *             self.c_matrix = iarduino_I2C_Matrix_8x8(address)
- *             self.c_matrix.begin()
+ *             sleep(.5)
  */
   __pyx_t_1 = (__pyx_v_address != Py_None);
   __pyx_t_2 = (__pyx_t_1 != 0);
   if (__pyx_t_2) {
 
-    /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":58
+    /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":57
  *     def __cinit__(self, address=None):
  *         if address is not None:
  *             self.c_matrix = iarduino_I2C_Matrix_8x8(address)             # <<<<<<<<<<<<<<
+ *             sleep(.5)
  *             self.c_matrix.begin()
- *         else:
  */
-    __pyx_t_3 = __Pyx_PyInt_As_unsigned_char(__pyx_v_address); if (unlikely((__pyx_t_3 == (unsigned char)-1) && PyErr_Occurred())) __PYX_ERR(0, 58, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyInt_As_unsigned_char(__pyx_v_address); if (unlikely((__pyx_t_3 == (unsigned char)-1) && PyErr_Occurred())) __PYX_ERR(0, 57, __pyx_L1_error)
     try {
       __pyx_t_4 = iarduino_I2C_Matrix_8x8(__pyx_t_3);
     } catch(...) {
       __Pyx_CppExn2PyErr();
-      __PYX_ERR(0, 58, __pyx_L1_error)
+      __PYX_ERR(0, 57, __pyx_L1_error)
     }
     __pyx_v_self->c_matrix = __pyx_t_4;
 
-    /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":59
+    /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":58
  *         if address is not None:
  *             self.c_matrix = iarduino_I2C_Matrix_8x8(address)
+ *             sleep(.5)             # <<<<<<<<<<<<<<
+ *             self.c_matrix.begin()
+ *         else:
+ */
+    __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_sleep); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 58, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    __pyx_t_7 = NULL;
+    if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_6))) {
+      __pyx_t_7 = PyMethod_GET_SELF(__pyx_t_6);
+      if (likely(__pyx_t_7)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_6);
+        __Pyx_INCREF(__pyx_t_7);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_6, function);
+      }
+    }
+    __pyx_t_5 = (__pyx_t_7) ? __Pyx_PyObject_Call2Args(__pyx_t_6, __pyx_t_7, __pyx_float__5) : __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_float__5);
+    __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
+    if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 58, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+
+    /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":59
+ *             self.c_matrix = iarduino_I2C_Matrix_8x8(address)
+ *             sleep(.5)
  *             self.c_matrix.begin()             # <<<<<<<<<<<<<<
  *         else:
  *             self.c_matrix = iarduino_I2C_Matrix_8x8()
  */
     (void)(__pyx_v_self->c_matrix.begin());
 
-    /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":57
+    /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":56
  * 
  *     def __cinit__(self, address=None):
  *         if address is not None:             # <<<<<<<<<<<<<<
  *             self.c_matrix = iarduino_I2C_Matrix_8x8(address)
- *             self.c_matrix.begin()
+ *             sleep(.5)
  */
     goto __pyx_L3;
   }
@@ -1778,8 +1602,8 @@ static int __pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cm
  *             self.c_matrix.begin()
  *         else:
  *             self.c_matrix = iarduino_I2C_Matrix_8x8()             # <<<<<<<<<<<<<<
+ *             sleep(.5)
  *             self.c_matrix.begin()
- * 
  */
   /*else*/ {
     try {
@@ -1793,6 +1617,32 @@ static int __pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cm
     /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":62
  *         else:
  *             self.c_matrix = iarduino_I2C_Matrix_8x8()
+ *             sleep(.5)             # <<<<<<<<<<<<<<
+ *             self.c_matrix.begin()
+ * 
+ */
+    __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_sleep); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 62, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    __pyx_t_7 = NULL;
+    if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_6))) {
+      __pyx_t_7 = PyMethod_GET_SELF(__pyx_t_6);
+      if (likely(__pyx_t_7)) {
+        PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_6);
+        __Pyx_INCREF(__pyx_t_7);
+        __Pyx_INCREF(function);
+        __Pyx_DECREF_SET(__pyx_t_6, function);
+      }
+    }
+    __pyx_t_5 = (__pyx_t_7) ? __Pyx_PyObject_Call2Args(__pyx_t_6, __pyx_t_7, __pyx_float__5) : __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_float__5);
+    __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
+    if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 62, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+
+    /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":63
+ *             self.c_matrix = iarduino_I2C_Matrix_8x8()
+ *             sleep(.5)
  *             self.c_matrix.begin()             # <<<<<<<<<<<<<<
  * 
  *     def begin(self):
@@ -1801,7 +1651,7 @@ static int __pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cm
   }
   __pyx_L3:;
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":56
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":55
  *     cdef iarduino_I2C_Matrix_8x8 c_matrix
  * 
  *     def __cinit__(self, address=None):             # <<<<<<<<<<<<<<
@@ -1813,6 +1663,9 @@ static int __pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cm
   __pyx_r = 0;
   goto __pyx_L0;
   __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_5);
+  __Pyx_XDECREF(__pyx_t_6);
+  __Pyx_XDECREF(__pyx_t_7);
   __Pyx_AddTraceback("pyiArduinoI2Cmatrix.pyiArduinoI2Cmatrix.pyiArduinoI2Cmatrix.__cinit__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = -1;
   __pyx_L0:;
@@ -1820,7 +1673,7 @@ static int __pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cm
   return __pyx_r;
 }
 
-/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":64
+/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":65
  *             self.c_matrix.begin()
  * 
  *     def begin(self):             # <<<<<<<<<<<<<<
@@ -1847,7 +1700,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("begin", 0);
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":65
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":66
  * 
  *     def begin(self):
  *         return self.c_matrix.begin()             # <<<<<<<<<<<<<<
@@ -1855,13 +1708,13 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
  *     def changeAddress(self, unsigned char newAddr):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyBool_FromLong(__pyx_v_self->c_matrix.begin()); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 65, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyBool_FromLong(__pyx_v_self->c_matrix.begin()); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 66, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":64
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":65
  *             self.c_matrix.begin()
  * 
  *     def begin(self):             # <<<<<<<<<<<<<<
@@ -1880,7 +1733,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   return __pyx_r;
 }
 
-/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":67
+/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":68
  *         return self.c_matrix.begin()
  * 
  *     def changeAddress(self, unsigned char newAddr):             # <<<<<<<<<<<<<<
@@ -1896,7 +1749,7 @@ static PyObject *__pyx_pw_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("changeAddress (wrapper)", 0);
   assert(__pyx_arg_newAddr); {
-    __pyx_v_newAddr = __Pyx_PyInt_As_unsigned_char(__pyx_arg_newAddr); if (unlikely((__pyx_v_newAddr == (unsigned char)-1) && PyErr_Occurred())) __PYX_ERR(0, 67, __pyx_L3_error)
+    __pyx_v_newAddr = __Pyx_PyInt_As_unsigned_char(__pyx_arg_newAddr); if (unlikely((__pyx_v_newAddr == (unsigned char)-1) && PyErr_Occurred())) __PYX_ERR(0, 68, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -1917,7 +1770,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("changeAddress", 0);
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":68
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":69
  * 
  *     def changeAddress(self, unsigned char newAddr):
  *         return self.c_matrix.changeAddress(newAddr)             # <<<<<<<<<<<<<<
@@ -1925,13 +1778,13 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
  *     def reset(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyBool_FromLong(__pyx_v_self->c_matrix.changeAddress(__pyx_v_newAddr)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 68, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyBool_FromLong(__pyx_v_self->c_matrix.changeAddress(__pyx_v_newAddr)); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 69, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":67
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":68
  *         return self.c_matrix.begin()
  * 
  *     def changeAddress(self, unsigned char newAddr):             # <<<<<<<<<<<<<<
@@ -1950,7 +1803,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   return __pyx_r;
 }
 
-/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":70
+/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":71
  *         return self.c_matrix.changeAddress(newAddr)
  * 
  *     def reset(self):             # <<<<<<<<<<<<<<
@@ -1977,7 +1830,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("reset", 0);
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":71
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":72
  * 
  *     def reset(self):
  *         return self.c_matrix.reset()             # <<<<<<<<<<<<<<
@@ -1985,13 +1838,13 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
  *     def getAddress(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyBool_FromLong(__pyx_v_self->c_matrix.reset()); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 71, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyBool_FromLong(__pyx_v_self->c_matrix.reset()); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 72, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":70
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":71
  *         return self.c_matrix.changeAddress(newAddr)
  * 
  *     def reset(self):             # <<<<<<<<<<<<<<
@@ -2010,7 +1863,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   return __pyx_r;
 }
 
-/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":73
+/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":74
  *         return self.c_matrix.reset()
  * 
  *     def getAddress(self):             # <<<<<<<<<<<<<<
@@ -2037,7 +1890,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("getAddress", 0);
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":74
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":75
  * 
  *     def getAddress(self):
  *         return self.c_matrix.getAddress()             # <<<<<<<<<<<<<<
@@ -2045,13 +1898,13 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
  *     def getVersion(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_unsigned_char(__pyx_v_self->c_matrix.getAddress()); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 74, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_unsigned_char(__pyx_v_self->c_matrix.getAddress()); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 75, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":73
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":74
  *         return self.c_matrix.reset()
  * 
  *     def getAddress(self):             # <<<<<<<<<<<<<<
@@ -2070,7 +1923,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   return __pyx_r;
 }
 
-/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":76
+/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":77
  *         return self.c_matrix.getAddress()
  * 
  *     def getVersion(self):             # <<<<<<<<<<<<<<
@@ -2097,7 +1950,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("getVersion", 0);
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":77
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":78
  * 
  *     def getVersion(self):
  *         return self.c_matrix.getVersion()             # <<<<<<<<<<<<<<
@@ -2105,13 +1958,13 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
  *     def getCoding(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_unsigned_char(__pyx_v_self->c_matrix.getVersion()); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 77, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_unsigned_char(__pyx_v_self->c_matrix.getVersion()); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 78, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":76
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":77
  *         return self.c_matrix.getAddress()
  * 
  *     def getVersion(self):             # <<<<<<<<<<<<<<
@@ -2130,7 +1983,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   return __pyx_r;
 }
 
-/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":79
+/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":80
  *         return self.c_matrix.getVersion()
  * 
  *     def getCoding(self):             # <<<<<<<<<<<<<<
@@ -2157,7 +2010,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("getCoding", 0);
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":80
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":81
  * 
  *     def getCoding(self):
  *         return self.c_matrix.getCoding()             # <<<<<<<<<<<<<<
@@ -2165,13 +2018,13 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
  *     def setCoding(self, name):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_unsigned_char(__pyx_v_self->c_matrix.getCoding()); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 80, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_unsigned_char(__pyx_v_self->c_matrix.getCoding()); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 81, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":79
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":80
  *         return self.c_matrix.getVersion()
  * 
  *     def getCoding(self):             # <<<<<<<<<<<<<<
@@ -2190,7 +2043,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   return __pyx_r;
 }
 
-/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":82
+/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":83
  *         return self.c_matrix.getCoding()
  * 
  *     def setCoding(self, name):             # <<<<<<<<<<<<<<
@@ -2217,17 +2070,17 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   unsigned char __pyx_t_1;
   __Pyx_RefNannySetupContext("setCoding", 0);
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":83
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":84
  * 
  *     def setCoding(self, name):
  *         self.c_matrix.setCoding(name)             # <<<<<<<<<<<<<<
  * 
  *     def codingDetect(self, letter_p):
  */
-  __pyx_t_1 = __Pyx_PyInt_As_unsigned_char(__pyx_v_name); if (unlikely((__pyx_t_1 == (unsigned char)-1) && PyErr_Occurred())) __PYX_ERR(0, 83, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_unsigned_char(__pyx_v_name); if (unlikely((__pyx_t_1 == (unsigned char)-1) && PyErr_Occurred())) __PYX_ERR(0, 84, __pyx_L1_error)
   __pyx_v_self->c_matrix.setCoding(__pyx_t_1);
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":82
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":83
  *         return self.c_matrix.getCoding()
  * 
  *     def setCoding(self, name):             # <<<<<<<<<<<<<<
@@ -2247,7 +2100,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   return __pyx_r;
 }
 
-/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":85
+/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":86
  *         self.c_matrix.setCoding(name)
  * 
  *     def codingDetect(self, letter_p):             # <<<<<<<<<<<<<<
@@ -2281,7 +2134,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   char *__pyx_t_8;
   __Pyx_RefNannySetupContext("codingDetect", 0);
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":86
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":87
  * 
  *     def codingDetect(self, letter_p):
  *         if isinstance(letter_p, str) and len(letter_p) is 1:             # <<<<<<<<<<<<<<
@@ -2295,20 +2148,20 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
     __pyx_t_1 = __pyx_t_3;
     goto __pyx_L4_bool_binop_done;
   }
-  __pyx_t_4 = PyObject_Length(__pyx_v_letter_p); if (unlikely(__pyx_t_4 == ((Py_ssize_t)-1))) __PYX_ERR(0, 86, __pyx_L1_error)
+  __pyx_t_4 = PyObject_Length(__pyx_v_letter_p); if (unlikely(__pyx_t_4 == ((Py_ssize_t)-1))) __PYX_ERR(0, 87, __pyx_L1_error)
   __pyx_t_3 = ((__pyx_t_4 == 1) != 0);
   __pyx_t_1 = __pyx_t_3;
   __pyx_L4_bool_binop_done:;
   if (__pyx_t_1) {
 
-    /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":87
+    /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":88
  *     def codingDetect(self, letter_p):
  *         if isinstance(letter_p, str) and len(letter_p) is 1:
  *             self.c_matrix.codingDetect(str.encode(letter_p))             # <<<<<<<<<<<<<<
  *         else:
  *             print(":     ''")
  */
-    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(((PyObject *)(&PyUnicode_Type)), __pyx_n_s_encode); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 87, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyObject_GetAttrStr(((PyObject *)(&PyUnicode_Type)), __pyx_n_s_encode); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 88, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __pyx_t_7 = NULL;
     if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_6))) {
@@ -2322,14 +2175,14 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
     }
     __pyx_t_5 = (__pyx_t_7) ? __Pyx_PyObject_Call2Args(__pyx_t_6, __pyx_t_7, __pyx_v_letter_p) : __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_v_letter_p);
     __Pyx_XDECREF(__pyx_t_7); __pyx_t_7 = 0;
-    if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 87, __pyx_L1_error)
+    if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 88, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-    __pyx_t_8 = __Pyx_PyObject_AsWritableString(__pyx_t_5); if (unlikely((!__pyx_t_8) && PyErr_Occurred())) __PYX_ERR(0, 87, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_AsWritableString(__pyx_t_5); if (unlikely((!__pyx_t_8) && PyErr_Occurred())) __PYX_ERR(0, 88, __pyx_L1_error)
     __pyx_v_self->c_matrix.codingDetect(__pyx_t_8);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-    /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":86
+    /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":87
  * 
  *     def codingDetect(self, letter_p):
  *         if isinstance(letter_p, str) and len(letter_p) is 1:             # <<<<<<<<<<<<<<
@@ -2339,7 +2192,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
     goto __pyx_L3;
   }
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":89
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":90
  *             self.c_matrix.codingDetect(str.encode(letter_p))
  *         else:
  *             print(":     ''")             # <<<<<<<<<<<<<<
@@ -2347,13 +2200,13 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
  *     def clrScr(self, ani = None):
  */
   /*else*/ {
-    __pyx_t_5 = __Pyx_PyObject_Call(__pyx_builtin_print, __pyx_tuple__2, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 89, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_Call(__pyx_builtin_print, __pyx_tuple__2, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 90, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   }
   __pyx_L3:;
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":85
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":86
  *         self.c_matrix.setCoding(name)
  * 
  *     def codingDetect(self, letter_p):             # <<<<<<<<<<<<<<
@@ -2376,7 +2229,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   return __pyx_r;
 }
 
-/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":91
+/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":92
  *             print(":     ''")
  * 
  *     def clrScr(self, ani = None):             # <<<<<<<<<<<<<<
@@ -2413,7 +2266,7 @@ static PyObject *__pyx_pw_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "clrScr") < 0)) __PYX_ERR(0, 91, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "clrScr") < 0)) __PYX_ERR(0, 92, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -2427,7 +2280,7 @@ static PyObject *__pyx_pw_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("clrScr", 0, 0, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 91, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("clrScr", 0, 0, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 92, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pyiArduinoI2Cmatrix.pyiArduinoI2Cmatrix.pyiArduinoI2Cmatrix.clrScr", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -2448,7 +2301,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   unsigned char __pyx_t_3;
   __Pyx_RefNannySetupContext("clrScr", 0);
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":92
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":93
  * 
  *     def clrScr(self, ani = None):
  *         if ani is not None:             # <<<<<<<<<<<<<<
@@ -2459,17 +2312,17 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   __pyx_t_2 = (__pyx_t_1 != 0);
   if (__pyx_t_2) {
 
-    /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":93
+    /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":94
  *     def clrScr(self, ani = None):
  *         if ani is not None:
  *             self.c_matrix.clrScr(ani)             # <<<<<<<<<<<<<<
  *         else:
  *             self.c_matrix.clrScr(0)
  */
-    __pyx_t_3 = __Pyx_PyInt_As_unsigned_char(__pyx_v_ani); if (unlikely((__pyx_t_3 == (unsigned char)-1) && PyErr_Occurred())) __PYX_ERR(0, 93, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyInt_As_unsigned_char(__pyx_v_ani); if (unlikely((__pyx_t_3 == (unsigned char)-1) && PyErr_Occurred())) __PYX_ERR(0, 94, __pyx_L1_error)
     __pyx_v_self->c_matrix.clrScr(__pyx_t_3);
 
-    /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":92
+    /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":93
  * 
  *     def clrScr(self, ani = None):
  *         if ani is not None:             # <<<<<<<<<<<<<<
@@ -2479,7 +2332,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
     goto __pyx_L3;
   }
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":95
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":96
  *             self.c_matrix.clrScr(ani)
  *         else:
  *             self.c_matrix.clrScr(0)             # <<<<<<<<<<<<<<
@@ -2491,7 +2344,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   }
   __pyx_L3:;
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":91
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":92
  *             print(":     ''")
  * 
  *     def clrScr(self, ani = None):             # <<<<<<<<<<<<<<
@@ -2511,7 +2364,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   return __pyx_r;
 }
 
-/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":97
+/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":98
  *             self.c_matrix.clrScr(0)
  * 
  *     def fillScr(self, ani = None):             # <<<<<<<<<<<<<<
@@ -2548,7 +2401,7 @@ static PyObject *__pyx_pw_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "fillScr") < 0)) __PYX_ERR(0, 97, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "fillScr") < 0)) __PYX_ERR(0, 98, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -2562,7 +2415,7 @@ static PyObject *__pyx_pw_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("fillScr", 0, 0, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 97, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("fillScr", 0, 0, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 98, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pyiArduinoI2Cmatrix.pyiArduinoI2Cmatrix.pyiArduinoI2Cmatrix.fillScr", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -2583,7 +2436,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   unsigned char __pyx_t_3;
   __Pyx_RefNannySetupContext("fillScr", 0);
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":98
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":99
  * 
  *     def fillScr(self, ani = None):
  *         if ani is not None:             # <<<<<<<<<<<<<<
@@ -2594,17 +2447,17 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   __pyx_t_2 = (__pyx_t_1 != 0);
   if (__pyx_t_2) {
 
-    /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":99
+    /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":100
  *     def fillScr(self, ani = None):
  *         if ani is not None:
  *             self.c_matrix.fillScr(ani)             # <<<<<<<<<<<<<<
  *         else:
  *             self.c_matrix.fillScr(0)
  */
-    __pyx_t_3 = __Pyx_PyInt_As_unsigned_char(__pyx_v_ani); if (unlikely((__pyx_t_3 == (unsigned char)-1) && PyErr_Occurred())) __PYX_ERR(0, 99, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyInt_As_unsigned_char(__pyx_v_ani); if (unlikely((__pyx_t_3 == (unsigned char)-1) && PyErr_Occurred())) __PYX_ERR(0, 100, __pyx_L1_error)
     __pyx_v_self->c_matrix.fillScr(__pyx_t_3);
 
-    /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":98
+    /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":99
  * 
  *     def fillScr(self, ani = None):
  *         if ani is not None:             # <<<<<<<<<<<<<<
@@ -2614,7 +2467,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
     goto __pyx_L3;
   }
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":101
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":102
  *             self.c_matrix.fillScr(ani)
  *         else:
  *             self.c_matrix.fillScr(0)             # <<<<<<<<<<<<<<
@@ -2626,7 +2479,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   }
   __pyx_L3:;
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":97
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":98
  *             self.c_matrix.clrScr(0)
  * 
  *     def fillScr(self, ani = None):             # <<<<<<<<<<<<<<
@@ -2646,7 +2499,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   return __pyx_r;
 }
 
-/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":103
+/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":104
  *             self.c_matrix.fillScr(0)
  * 
  *     def invScr(self):             # <<<<<<<<<<<<<<
@@ -2672,7 +2525,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("invScr", 0);
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":104
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":105
  * 
  *     def invScr(self):
  *         self.c_matrix.invScr()             # <<<<<<<<<<<<<<
@@ -2681,7 +2534,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
  */
   __pyx_v_self->c_matrix.invScr();
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":103
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":104
  *             self.c_matrix.fillScr(0)
  * 
  *     def invScr(self):             # <<<<<<<<<<<<<<
@@ -2696,7 +2549,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   return __pyx_r;
 }
 
-/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":106
+/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":107
  *         self.c_matrix.invScr()
  * 
  *     def drawImage(self, array, ani = None):             # <<<<<<<<<<<<<<
@@ -2740,7 +2593,7 @@ static PyObject *__pyx_pw_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "drawImage") < 0)) __PYX_ERR(0, 106, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "drawImage") < 0)) __PYX_ERR(0, 107, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -2756,7 +2609,7 @@ static PyObject *__pyx_pw_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("drawImage", 0, 1, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 106, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("drawImage", 0, 1, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 107, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pyiArduinoI2Cmatrix.pyiArduinoI2Cmatrix.pyiArduinoI2Cmatrix.drawImage", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -2780,7 +2633,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   unsigned char __pyx_t_5;
   __Pyx_RefNannySetupContext("drawImage", 0);
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":107
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":108
  * 
  *     def drawImage(self, array, ani = None):
  *         if isinstance(array, list):             # <<<<<<<<<<<<<<
@@ -2791,19 +2644,19 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   __pyx_t_2 = (__pyx_t_1 != 0);
   if (__pyx_t_2) {
 
-    /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":108
+    /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":109
  *     def drawImage(self, array, ani = None):
  *         if isinstance(array, list):
  *             b = bytearray(array)             # <<<<<<<<<<<<<<
  *             if ani is None:
  *                 self.c_matrix.drawImage(b, 0, 0)
  */
-    __pyx_t_3 = __Pyx_PyObject_CallOneArg(((PyObject *)(&PyByteArray_Type)), __pyx_v_array); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 108, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_CallOneArg(((PyObject *)(&PyByteArray_Type)), __pyx_v_array); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 109, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_v_b = ((PyObject*)__pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":109
+    /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":110
  *         if isinstance(array, list):
  *             b = bytearray(array)
  *             if ani is None:             # <<<<<<<<<<<<<<
@@ -2814,17 +2667,17 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
     __pyx_t_1 = (__pyx_t_2 != 0);
     if (__pyx_t_1) {
 
-      /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":110
+      /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":111
  *             b = bytearray(array)
  *             if ani is None:
  *                 self.c_matrix.drawImage(b, 0, 0)             # <<<<<<<<<<<<<<
  *             elif isinstance(ani, int):
  *                 self.c_matrix.drawImage(b, ani, 0)
  */
-      __pyx_t_4 = __Pyx_PyObject_AsWritableUString(__pyx_v_b); if (unlikely((!__pyx_t_4) && PyErr_Occurred())) __PYX_ERR(0, 110, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_AsWritableUString(__pyx_v_b); if (unlikely((!__pyx_t_4) && PyErr_Occurred())) __PYX_ERR(0, 111, __pyx_L1_error)
       __pyx_v_self->c_matrix.drawImage(__pyx_t_4, 0, 0);
 
-      /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":109
+      /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":110
  *         if isinstance(array, list):
  *             b = bytearray(array)
  *             if ani is None:             # <<<<<<<<<<<<<<
@@ -2834,7 +2687,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
       goto __pyx_L4;
     }
 
-    /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":111
+    /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":112
  *             if ani is None:
  *                 self.c_matrix.drawImage(b, 0, 0)
  *             elif isinstance(ani, int):             # <<<<<<<<<<<<<<
@@ -2845,18 +2698,18 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
     __pyx_t_2 = (__pyx_t_1 != 0);
     if (__pyx_t_2) {
 
-      /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":112
+      /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":113
  *                 self.c_matrix.drawImage(b, 0, 0)
  *             elif isinstance(ani, int):
  *                 self.c_matrix.drawImage(b, ani, 0)             # <<<<<<<<<<<<<<
  *             else:
  *                 print("   : "
  */
-      __pyx_t_4 = __Pyx_PyObject_AsWritableUString(__pyx_v_b); if (unlikely((!__pyx_t_4) && PyErr_Occurred())) __PYX_ERR(0, 112, __pyx_L1_error)
-      __pyx_t_5 = __Pyx_PyInt_As_unsigned_char(__pyx_v_ani); if (unlikely((__pyx_t_5 == (unsigned char)-1) && PyErr_Occurred())) __PYX_ERR(0, 112, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_AsWritableUString(__pyx_v_b); if (unlikely((!__pyx_t_4) && PyErr_Occurred())) __PYX_ERR(0, 113, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyInt_As_unsigned_char(__pyx_v_ani); if (unlikely((__pyx_t_5 == (unsigned char)-1) && PyErr_Occurred())) __PYX_ERR(0, 113, __pyx_L1_error)
       __pyx_v_self->c_matrix.drawImage(__pyx_t_4, __pyx_t_5, 0);
 
-      /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":111
+      /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":112
  *             if ani is None:
  *                 self.c_matrix.drawImage(b, 0, 0)
  *             elif isinstance(ani, int):             # <<<<<<<<<<<<<<
@@ -2866,7 +2719,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
       goto __pyx_L4;
     }
 
-    /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":114
+    /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":115
  *                 self.c_matrix.drawImage(b, ani, 0)
  *             else:
  *                 print("   : "             # <<<<<<<<<<<<<<
@@ -2874,13 +2727,13 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
  *                       + " :\n"
  */
     /*else*/ {
-      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_print, __pyx_tuple__3, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 114, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_print, __pyx_tuple__3, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 115, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     }
     __pyx_L4:;
 
-    /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":107
+    /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":108
  * 
  *     def drawImage(self, array, ani = None):
  *         if isinstance(array, list):             # <<<<<<<<<<<<<<
@@ -2890,7 +2743,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
     goto __pyx_L3;
   }
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":119
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":120
  *                       + ".drawImage(,  )")
  *         else:
  *             print("   : "             # <<<<<<<<<<<<<<
@@ -2898,13 +2751,13 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
  *                   + " :\n"
  */
   /*else*/ {
-    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_print, __pyx_tuple__4, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 119, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_Call(__pyx_builtin_print, __pyx_tuple__4, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 120, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   }
   __pyx_L3:;
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":106
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":107
  *         self.c_matrix.invScr()
  * 
  *     def drawImage(self, array, ani = None):             # <<<<<<<<<<<<<<
@@ -2926,7 +2779,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   return __pyx_r;
 }
 
-/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":124
+/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":125
  *                   + ".drawImage(, [ ])")
  * 
  *     def getImage(self):             # <<<<<<<<<<<<<<
@@ -2956,14 +2809,14 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   unsigned char *__pyx_t_2;
   __Pyx_RefNannySetupContext("getImage", 0);
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":125
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":126
  * 
  *     def getImage(self):
  *         image = [0,0,0,0,0,0,0,0]             # <<<<<<<<<<<<<<
  *         b = bytearray(image)
  *         self.c_matrix.getImage(b)
  */
-  __pyx_t_1 = PyList_New(8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 125, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(8); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 126, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__pyx_int_0);
   __Pyx_GIVEREF(__pyx_int_0);
@@ -2992,41 +2845,41 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   __pyx_v_image = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":126
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":127
  *     def getImage(self):
  *         image = [0,0,0,0,0,0,0,0]
  *         b = bytearray(image)             # <<<<<<<<<<<<<<
  *         self.c_matrix.getImage(b)
  *         image = list(b)
  */
-  __pyx_t_1 = __Pyx_PyObject_CallOneArg(((PyObject *)(&PyByteArray_Type)), __pyx_v_image); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 126, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_CallOneArg(((PyObject *)(&PyByteArray_Type)), __pyx_v_image); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 127, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_b = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":127
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":128
  *         image = [0,0,0,0,0,0,0,0]
  *         b = bytearray(image)
  *         self.c_matrix.getImage(b)             # <<<<<<<<<<<<<<
  *         image = list(b)
  *         return image
  */
-  __pyx_t_2 = __Pyx_PyObject_AsWritableUString(__pyx_v_b); if (unlikely((!__pyx_t_2) && PyErr_Occurred())) __PYX_ERR(0, 127, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_AsWritableUString(__pyx_v_b); if (unlikely((!__pyx_t_2) && PyErr_Occurred())) __PYX_ERR(0, 128, __pyx_L1_error)
   __pyx_v_self->c_matrix.getImage(__pyx_t_2);
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":128
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":129
  *         b = bytearray(image)
  *         self.c_matrix.getImage(b)
  *         image = list(b)             # <<<<<<<<<<<<<<
  *         return image
  * 
  */
-  __pyx_t_1 = PySequence_List(__pyx_v_b); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 128, __pyx_L1_error)
+  __pyx_t_1 = PySequence_List(__pyx_v_b); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 129, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF_SET(__pyx_v_image, ((PyObject*)__pyx_t_1));
   __pyx_t_1 = 0;
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":129
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":130
  *         self.c_matrix.getImage(b)
  *         image = list(b)
  *         return image             # <<<<<<<<<<<<<<
@@ -3038,7 +2891,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   __pyx_r = __pyx_v_image;
   goto __pyx_L0;
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":124
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":125
  *                   + ".drawImage(, [ ])")
  * 
  *     def getImage(self):             # <<<<<<<<<<<<<<
@@ -3059,7 +2912,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   return __pyx_r;
 }
 
-/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":131
+/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":132
  *         return image
  * 
  *     def print(self, mes, ani = None):             # <<<<<<<<<<<<<<
@@ -3104,7 +2957,7 @@ static PyObject *__pyx_pw_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "print") < 0)) __PYX_ERR(0, 131, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "print") < 0)) __PYX_ERR(0, 132, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -3120,7 +2973,7 @@ static PyObject *__pyx_pw_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("print", 0, 1, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 131, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("print", 0, 1, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 132, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pyiArduinoI2Cmatrix.pyiArduinoI2Cmatrix.pyiArduinoI2Cmatrix.print", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -3146,7 +2999,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   short __pyx_t_7;
   __Pyx_RefNannySetupContext("print", 0);
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":154
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":155
  *             m.print("A", X8_RIPPLES)
  *         """
  *         if isinstance(mes, str):             # <<<<<<<<<<<<<<
@@ -3157,14 +3010,14 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   __pyx_t_2 = (__pyx_t_1 != 0);
   if (__pyx_t_2) {
 
-    /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":155
+    /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":156
  *         """
  *         if isinstance(mes, str):
  *             b = bytearray(mes, "utf-8")             # <<<<<<<<<<<<<<
  *             if ani is None:
  *                 self.c_matrix.print(b, 0)
  */
-    __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 155, __pyx_L1_error)
+    __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 156, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_INCREF(__pyx_v_mes);
     __Pyx_GIVEREF(__pyx_v_mes);
@@ -3172,13 +3025,13 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
     __Pyx_INCREF(__pyx_kp_u_utf_8);
     __Pyx_GIVEREF(__pyx_kp_u_utf_8);
     PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_kp_u_utf_8);
-    __pyx_t_4 = __Pyx_PyObject_Call(((PyObject *)(&PyByteArray_Type)), __pyx_t_3, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 155, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_Call(((PyObject *)(&PyByteArray_Type)), __pyx_t_3, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 156, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_v_b = ((PyObject*)__pyx_t_4);
     __pyx_t_4 = 0;
 
-    /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":156
+    /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":157
  *         if isinstance(mes, str):
  *             b = bytearray(mes, "utf-8")
  *             if ani is None:             # <<<<<<<<<<<<<<
@@ -3189,17 +3042,17 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
     __pyx_t_1 = (__pyx_t_2 != 0);
     if (__pyx_t_1) {
 
-      /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":157
+      /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":158
  *             b = bytearray(mes, "utf-8")
  *             if ani is None:
  *                 self.c_matrix.print(b, 0)             # <<<<<<<<<<<<<<
  *             elif isinstance(ani, int):
  *                 self.c_matrix.print(b, ani)
  */
-      __pyx_t_5 = __Pyx_PyObject_AsWritableString(__pyx_v_b); if (unlikely((!__pyx_t_5) && PyErr_Occurred())) __PYX_ERR(0, 157, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyObject_AsWritableString(__pyx_v_b); if (unlikely((!__pyx_t_5) && PyErr_Occurred())) __PYX_ERR(0, 158, __pyx_L1_error)
       __pyx_v_self->c_matrix.print(__pyx_t_5, 0);
 
-      /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":156
+      /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":157
  *         if isinstance(mes, str):
  *             b = bytearray(mes, "utf-8")
  *             if ani is None:             # <<<<<<<<<<<<<<
@@ -3209,7 +3062,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
       goto __pyx_L4;
     }
 
-    /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":158
+    /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":159
  *             if ani is None:
  *                 self.c_matrix.print(b, 0)
  *             elif isinstance(ani, int):             # <<<<<<<<<<<<<<
@@ -3220,18 +3073,18 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
     __pyx_t_2 = (__pyx_t_1 != 0);
     if (__pyx_t_2) {
 
-      /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":159
+      /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":160
  *                 self.c_matrix.print(b, 0)
  *             elif isinstance(ani, int):
  *                 self.c_matrix.print(b, ani)             # <<<<<<<<<<<<<<
  *             else:
  *                 print("   : "
  */
-      __pyx_t_5 = __Pyx_PyObject_AsWritableString(__pyx_v_b); if (unlikely((!__pyx_t_5) && PyErr_Occurred())) __PYX_ERR(0, 159, __pyx_L1_error)
-      __pyx_t_6 = __Pyx_PyInt_As_unsigned_char(__pyx_v_ani); if (unlikely((__pyx_t_6 == (unsigned char)-1) && PyErr_Occurred())) __PYX_ERR(0, 159, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyObject_AsWritableString(__pyx_v_b); if (unlikely((!__pyx_t_5) && PyErr_Occurred())) __PYX_ERR(0, 160, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyInt_As_unsigned_char(__pyx_v_ani); if (unlikely((__pyx_t_6 == (unsigned char)-1) && PyErr_Occurred())) __PYX_ERR(0, 160, __pyx_L1_error)
       __pyx_v_self->c_matrix.print(__pyx_t_5, __pyx_t_6);
 
-      /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":158
+      /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":159
  *             if ani is None:
  *                 self.c_matrix.print(b, 0)
  *             elif isinstance(ani, int):             # <<<<<<<<<<<<<<
@@ -3241,7 +3094,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
       goto __pyx_L4;
     }
 
-    /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":161
+    /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":162
  *                 self.c_matrix.print(b, ani)
  *             else:
  *                 print("   : "             # <<<<<<<<<<<<<<
@@ -3249,13 +3102,13 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
  *                       + " :\n"
  */
     /*else*/ {
-      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_print, __pyx_tuple__5, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 161, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_print, __pyx_tuple__5, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 162, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     }
     __pyx_L4:;
 
-    /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":154
+    /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":155
  *             m.print("A", X8_RIPPLES)
  *         """
  *         if isinstance(mes, str):             # <<<<<<<<<<<<<<
@@ -3265,7 +3118,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
     goto __pyx_L3;
   }
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":165
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":166
  *                       + " :\n"
  *                       + ".print(   ,  )")
  *         elif isinstance(mes, int):             # <<<<<<<<<<<<<<
@@ -3276,7 +3129,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   __pyx_t_1 = (__pyx_t_2 != 0);
   if (__pyx_t_1) {
 
-    /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":166
+    /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":167
  *                       + ".print(   ,  )")
  *         elif isinstance(mes, int):
  *             if ani is None:             # <<<<<<<<<<<<<<
@@ -3287,17 +3140,17 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
     __pyx_t_2 = (__pyx_t_1 != 0);
     if (__pyx_t_2) {
 
-      /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":167
+      /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":168
  *         elif isinstance(mes, int):
  *             if ani is None:
  *                 self.c_matrix.printNum(mes, 0)             # <<<<<<<<<<<<<<
  *             elif isinstance(ani, int):
  *                 self.c_matrix.printNum(mes, ani)
  */
-      __pyx_t_7 = __Pyx_PyInt_As_short(__pyx_v_mes); if (unlikely((__pyx_t_7 == (short)-1) && PyErr_Occurred())) __PYX_ERR(0, 167, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_PyInt_As_short(__pyx_v_mes); if (unlikely((__pyx_t_7 == (short)-1) && PyErr_Occurred())) __PYX_ERR(0, 168, __pyx_L1_error)
       __pyx_v_self->c_matrix.print(__pyx_t_7, 0);
 
-      /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":166
+      /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":167
  *                       + ".print(   ,  )")
  *         elif isinstance(mes, int):
  *             if ani is None:             # <<<<<<<<<<<<<<
@@ -3307,7 +3160,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
       goto __pyx_L5;
     }
 
-    /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":168
+    /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":169
  *             if ani is None:
  *                 self.c_matrix.printNum(mes, 0)
  *             elif isinstance(ani, int):             # <<<<<<<<<<<<<<
@@ -3318,18 +3171,18 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
     __pyx_t_1 = (__pyx_t_2 != 0);
     if (__pyx_t_1) {
 
-      /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":169
+      /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":170
  *                 self.c_matrix.printNum(mes, 0)
  *             elif isinstance(ani, int):
  *                 self.c_matrix.printNum(mes, ani)             # <<<<<<<<<<<<<<
  *             else:
  *                 print("   : "
  */
-      __pyx_t_7 = __Pyx_PyInt_As_short(__pyx_v_mes); if (unlikely((__pyx_t_7 == (short)-1) && PyErr_Occurred())) __PYX_ERR(0, 169, __pyx_L1_error)
-      __pyx_t_6 = __Pyx_PyInt_As_unsigned_char(__pyx_v_ani); if (unlikely((__pyx_t_6 == (unsigned char)-1) && PyErr_Occurred())) __PYX_ERR(0, 169, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_PyInt_As_short(__pyx_v_mes); if (unlikely((__pyx_t_7 == (short)-1) && PyErr_Occurred())) __PYX_ERR(0, 170, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyInt_As_unsigned_char(__pyx_v_ani); if (unlikely((__pyx_t_6 == (unsigned char)-1) && PyErr_Occurred())) __PYX_ERR(0, 170, __pyx_L1_error)
       __pyx_v_self->c_matrix.print(__pyx_t_7, __pyx_t_6);
 
-      /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":168
+      /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":169
  *             if ani is None:
  *                 self.c_matrix.printNum(mes, 0)
  *             elif isinstance(ani, int):             # <<<<<<<<<<<<<<
@@ -3339,7 +3192,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
       goto __pyx_L5;
     }
 
-    /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":171
+    /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":172
  *                 self.c_matrix.printNum(mes, ani)
  *             else:
  *                 print("   : "             # <<<<<<<<<<<<<<
@@ -3347,13 +3200,13 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
  *                       + " :\n"
  */
     /*else*/ {
-      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_print, __pyx_tuple__5, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 171, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_print, __pyx_tuple__5, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 172, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     }
     __pyx_L5:;
 
-    /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":165
+    /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":166
  *                       + " :\n"
  *                       + ".print(   ,  )")
  *         elif isinstance(mes, int):             # <<<<<<<<<<<<<<
@@ -3363,7 +3216,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
     goto __pyx_L3;
   }
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":176
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":177
  *                       + ".print(   ,  )")
  *         else:
  *             print("   : "             # <<<<<<<<<<<<<<
@@ -3371,13 +3224,13 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
  *                   + " :\n"
  */
   /*else*/ {
-    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_print, __pyx_tuple__6, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 176, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_print, __pyx_tuple__6, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 177, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
   __pyx_L3:;
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":131
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":132
  *         return image
  * 
  *     def print(self, mes, ani = None):             # <<<<<<<<<<<<<<
@@ -3400,7 +3253,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   return __pyx_r;
 }
 
-/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":181
+/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":182
  *                   + ".print(   , [ ])")
  * 
  *     def autoScroll(self, speed, interval = None):             # <<<<<<<<<<<<<<
@@ -3444,7 +3297,7 @@ static PyObject *__pyx_pw_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "autoScroll") < 0)) __PYX_ERR(0, 181, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "autoScroll") < 0)) __PYX_ERR(0, 182, __pyx_L3_error)
       }
     } else {
       switch (PyTuple_GET_SIZE(__pyx_args)) {
@@ -3460,7 +3313,7 @@ static PyObject *__pyx_pw_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("autoScroll", 0, 1, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 181, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("autoScroll", 0, 1, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 182, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pyiArduinoI2Cmatrix.pyiArduinoI2Cmatrix.pyiArduinoI2Cmatrix.autoScroll", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -3482,7 +3335,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   unsigned short __pyx_t_4;
   __Pyx_RefNannySetupContext("autoScroll", 0);
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":182
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":183
  * 
  *     def autoScroll(self, speed, interval = None):
  *         if interval is None:             # <<<<<<<<<<<<<<
@@ -3493,17 +3346,17 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   __pyx_t_2 = (__pyx_t_1 != 0);
   if (__pyx_t_2) {
 
-    /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":183
+    /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":184
  *     def autoScroll(self, speed, interval = None):
  *         if interval is None:
  *             self.c_matrix.autoScroll(speed, 0)             # <<<<<<<<<<<<<<
  *         else:
  *             self.c_matrix.autoScroll(speed, interval)
  */
-    __pyx_t_3 = __Pyx_PyInt_As_unsigned_char(__pyx_v_speed); if (unlikely((__pyx_t_3 == (unsigned char)-1) && PyErr_Occurred())) __PYX_ERR(0, 183, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyInt_As_unsigned_char(__pyx_v_speed); if (unlikely((__pyx_t_3 == (unsigned char)-1) && PyErr_Occurred())) __PYX_ERR(0, 184, __pyx_L1_error)
     __pyx_v_self->c_matrix.autoScroll(__pyx_t_3, 0);
 
-    /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":182
+    /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":183
  * 
  *     def autoScroll(self, speed, interval = None):
  *         if interval is None:             # <<<<<<<<<<<<<<
@@ -3513,7 +3366,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
     goto __pyx_L3;
   }
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":185
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":186
  *             self.c_matrix.autoScroll(speed, 0)
  *         else:
  *             self.c_matrix.autoScroll(speed, interval)             # <<<<<<<<<<<<<<
@@ -3521,13 +3374,13 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
  *     def scrollPos(self, position):
  */
   /*else*/ {
-    __pyx_t_3 = __Pyx_PyInt_As_unsigned_char(__pyx_v_speed); if (unlikely((__pyx_t_3 == (unsigned char)-1) && PyErr_Occurred())) __PYX_ERR(0, 185, __pyx_L1_error)
-    __pyx_t_4 = __Pyx_PyInt_As_unsigned_short(__pyx_v_interval); if (unlikely((__pyx_t_4 == (unsigned short)-1) && PyErr_Occurred())) __PYX_ERR(0, 185, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyInt_As_unsigned_char(__pyx_v_speed); if (unlikely((__pyx_t_3 == (unsigned char)-1) && PyErr_Occurred())) __PYX_ERR(0, 186, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyInt_As_unsigned_short(__pyx_v_interval); if (unlikely((__pyx_t_4 == (unsigned short)-1) && PyErr_Occurred())) __PYX_ERR(0, 186, __pyx_L1_error)
     __pyx_v_self->c_matrix.autoScroll(__pyx_t_3, __pyx_t_4);
   }
   __pyx_L3:;
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":181
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":182
  *                   + ".print(   , [ ])")
  * 
  *     def autoScroll(self, speed, interval = None):             # <<<<<<<<<<<<<<
@@ -3547,7 +3400,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   return __pyx_r;
 }
 
-/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":187
+/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":188
  *             self.c_matrix.autoScroll(speed, interval)
  * 
  *     def scrollPos(self, position):             # <<<<<<<<<<<<<<
@@ -3574,17 +3427,17 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   unsigned short __pyx_t_1;
   __Pyx_RefNannySetupContext("scrollPos", 0);
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":188
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":189
  * 
  *     def scrollPos(self, position):
  *         self.c_matrix.scrollPos(position)             # <<<<<<<<<<<<<<
  * 
  *     def scrollDir(self, direction):
  */
-  __pyx_t_1 = __Pyx_PyInt_As_unsigned_short(__pyx_v_position); if (unlikely((__pyx_t_1 == (unsigned short)-1) && PyErr_Occurred())) __PYX_ERR(0, 188, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_unsigned_short(__pyx_v_position); if (unlikely((__pyx_t_1 == (unsigned short)-1) && PyErr_Occurred())) __PYX_ERR(0, 189, __pyx_L1_error)
   __pyx_v_self->c_matrix.scrollPos(__pyx_t_1);
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":187
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":188
  *             self.c_matrix.autoScroll(speed, interval)
  * 
  *     def scrollPos(self, position):             # <<<<<<<<<<<<<<
@@ -3604,7 +3457,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   return __pyx_r;
 }
 
-/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":190
+/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":191
  *         self.c_matrix.scrollPos(position)
  * 
  *     def scrollDir(self, direction):             # <<<<<<<<<<<<<<
@@ -3631,17 +3484,17 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   int __pyx_t_1;
   __Pyx_RefNannySetupContext("scrollDir", 0);
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":191
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":192
  * 
  *     def scrollDir(self, direction):
  *         self.c_matrix.scrollDir(direction)             # <<<<<<<<<<<<<<
  * 
  *     def scrollMod(self, mode):
  */
-  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_direction); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 191, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_direction); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 192, __pyx_L1_error)
   __pyx_v_self->c_matrix.scrollDir(__pyx_t_1);
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":190
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":191
  *         self.c_matrix.scrollPos(position)
  * 
  *     def scrollDir(self, direction):             # <<<<<<<<<<<<<<
@@ -3661,7 +3514,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   return __pyx_r;
 }
 
-/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":193
+/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":194
  *         self.c_matrix.scrollDir(direction)
  * 
  *     def scrollMod(self, mode):             # <<<<<<<<<<<<<<
@@ -3688,17 +3541,17 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   int __pyx_t_1;
   __Pyx_RefNannySetupContext("scrollMod", 0);
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":194
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":195
  * 
  *     def scrollMod(self, mode):
  *         self.c_matrix.scrollMod(mode)             # <<<<<<<<<<<<<<
  * 
  *     def scrollStep(self):
  */
-  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_mode); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 194, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_IsTrue(__pyx_v_mode); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 195, __pyx_L1_error)
   __pyx_v_self->c_matrix.scrollMod(__pyx_t_1);
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":193
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":194
  *         self.c_matrix.scrollDir(direction)
  * 
  *     def scrollMod(self, mode):             # <<<<<<<<<<<<<<
@@ -3718,7 +3571,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   return __pyx_r;
 }
 
-/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":196
+/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":197
  *         self.c_matrix.scrollMod(mode)
  * 
  *     def scrollStep(self):             # <<<<<<<<<<<<<<
@@ -3744,7 +3597,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("scrollStep", 0);
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":197
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":198
  * 
  *     def scrollStep(self):
  *         self.c_matrix.scrollStep()             # <<<<<<<<<<<<<<
@@ -3753,7 +3606,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
  */
   __pyx_v_self->c_matrix.scrollStep();
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":196
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":197
  *         self.c_matrix.scrollMod(mode)
  * 
  *     def scrollStep(self):             # <<<<<<<<<<<<<<
@@ -3768,7 +3621,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   return __pyx_r;
 }
 
-/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":199
+/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":200
  *         self.c_matrix.scrollStep()
  * 
  *     def setTimeIdleFirst(self, time):             # <<<<<<<<<<<<<<
@@ -3795,17 +3648,17 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   unsigned short __pyx_t_1;
   __Pyx_RefNannySetupContext("setTimeIdleFirst", 0);
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":200
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":201
  * 
  *     def setTimeIdleFirst(self, time):
  *         self.c_matrix.setTimeIdleFirst(time)             # <<<<<<<<<<<<<<
  * 
  *     def setTimeIdleLast(self, time):
  */
-  __pyx_t_1 = __Pyx_PyInt_As_unsigned_short(__pyx_v_time); if (unlikely((__pyx_t_1 == (unsigned short)-1) && PyErr_Occurred())) __PYX_ERR(0, 200, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_unsigned_short(__pyx_v_time); if (unlikely((__pyx_t_1 == (unsigned short)-1) && PyErr_Occurred())) __PYX_ERR(0, 201, __pyx_L1_error)
   __pyx_v_self->c_matrix.setTimeIdleFirst(__pyx_t_1);
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":199
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":200
  *         self.c_matrix.scrollStep()
  * 
  *     def setTimeIdleFirst(self, time):             # <<<<<<<<<<<<<<
@@ -3825,7 +3678,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   return __pyx_r;
 }
 
-/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":202
+/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":203
  *         self.c_matrix.setTimeIdleFirst(time)
  * 
  *     def setTimeIdleLast(self, time):             # <<<<<<<<<<<<<<
@@ -3852,17 +3705,17 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   unsigned short __pyx_t_1;
   __Pyx_RefNannySetupContext("setTimeIdleLast", 0);
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":203
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":204
  * 
  *     def setTimeIdleLast(self, time):
  *         self.c_matrix.setTimeIdleLast(time)             # <<<<<<<<<<<<<<
  * 
  *     def getScroolLen(self):
  */
-  __pyx_t_1 = __Pyx_PyInt_As_unsigned_short(__pyx_v_time); if (unlikely((__pyx_t_1 == (unsigned short)-1) && PyErr_Occurred())) __PYX_ERR(0, 203, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_unsigned_short(__pyx_v_time); if (unlikely((__pyx_t_1 == (unsigned short)-1) && PyErr_Occurred())) __PYX_ERR(0, 204, __pyx_L1_error)
   __pyx_v_self->c_matrix.setTimeIdleLast(__pyx_t_1);
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":202
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":203
  *         self.c_matrix.setTimeIdleFirst(time)
  * 
  *     def setTimeIdleLast(self, time):             # <<<<<<<<<<<<<<
@@ -3882,7 +3735,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   return __pyx_r;
 }
 
-/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":205
+/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":206
  *         self.c_matrix.setTimeIdleLast(time)
  * 
  *     def getScroolLen(self):             # <<<<<<<<<<<<<<
@@ -3909,7 +3762,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("getScroolLen", 0);
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":206
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":207
  * 
  *     def getScroolLen(self):
  *         return self.c_matrix.getScroolLen()             # <<<<<<<<<<<<<<
@@ -3917,13 +3770,13 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
  *     def getScroolWidth(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_unsigned_short(__pyx_v_self->c_matrix.getScroolLen()); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 206, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_unsigned_short(__pyx_v_self->c_matrix.getScroolLen()); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 207, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":205
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":206
  *         self.c_matrix.setTimeIdleLast(time)
  * 
  *     def getScroolLen(self):             # <<<<<<<<<<<<<<
@@ -3942,7 +3795,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   return __pyx_r;
 }
 
-/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":208
+/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":209
  *         return self.c_matrix.getScroolLen()
  * 
  *     def getScroolWidth(self):             # <<<<<<<<<<<<<<
@@ -3969,7 +3822,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("getScroolWidth", 0);
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":209
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":210
  * 
  *     def getScroolWidth(self):
  *         return self.c_matrix.getScroolWidth()             # <<<<<<<<<<<<<<
@@ -3977,13 +3830,13 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
  *     def angle(self, angle):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_unsigned_short(__pyx_v_self->c_matrix.getScroolWidth()); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 209, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_unsigned_short(__pyx_v_self->c_matrix.getScroolWidth()); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 210, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":208
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":209
  *         return self.c_matrix.getScroolLen()
  * 
  *     def getScroolWidth(self):             # <<<<<<<<<<<<<<
@@ -4002,7 +3855,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   return __pyx_r;
 }
 
-/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":211
+/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":212
  *         return self.c_matrix.getScroolWidth()
  * 
  *     def angle(self, angle):             # <<<<<<<<<<<<<<
@@ -4029,17 +3882,17 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   unsigned short __pyx_t_1;
   __Pyx_RefNannySetupContext("angle", 0);
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":212
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":213
  * 
  *     def angle(self, angle):
  *         self.c_matrix.angle(angle)             # <<<<<<<<<<<<<<
  * 
  *     def fps(self, fps):
  */
-  __pyx_t_1 = __Pyx_PyInt_As_unsigned_short(__pyx_v_angle); if (unlikely((__pyx_t_1 == (unsigned short)-1) && PyErr_Occurred())) __PYX_ERR(0, 212, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_unsigned_short(__pyx_v_angle); if (unlikely((__pyx_t_1 == (unsigned short)-1) && PyErr_Occurred())) __PYX_ERR(0, 213, __pyx_L1_error)
   __pyx_v_self->c_matrix.angle(__pyx_t_1);
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":211
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":212
  *         return self.c_matrix.getScroolWidth()
  * 
  *     def angle(self, angle):             # <<<<<<<<<<<<<<
@@ -4059,7 +3912,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   return __pyx_r;
 }
 
-/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":214
+/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":215
  *         self.c_matrix.angle(angle)
  * 
  *     def fps(self, fps):             # <<<<<<<<<<<<<<
@@ -4086,17 +3939,17 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   unsigned char __pyx_t_1;
   __Pyx_RefNannySetupContext("fps", 0);
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":215
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":216
  * 
  *     def fps(self, fps):
  *         self.c_matrix.fps(fps)             # <<<<<<<<<<<<<<
  * 
  *     def bright(self, brightness):
  */
-  __pyx_t_1 = __Pyx_PyInt_As_unsigned_char(__pyx_v_fps); if (unlikely((__pyx_t_1 == (unsigned char)-1) && PyErr_Occurred())) __PYX_ERR(0, 215, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_unsigned_char(__pyx_v_fps); if (unlikely((__pyx_t_1 == (unsigned char)-1) && PyErr_Occurred())) __PYX_ERR(0, 216, __pyx_L1_error)
   __pyx_v_self->c_matrix.fps(__pyx_t_1);
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":214
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":215
  *         self.c_matrix.angle(angle)
  * 
  *     def fps(self, fps):             # <<<<<<<<<<<<<<
@@ -4116,7 +3969,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   return __pyx_r;
 }
 
-/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":217
+/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":218
  *         self.c_matrix.fps(fps)
  * 
  *     def bright(self, brightness):             # <<<<<<<<<<<<<<
@@ -4143,17 +3996,17 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   unsigned char __pyx_t_1;
   __Pyx_RefNannySetupContext("bright", 0);
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":218
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":219
  * 
  *     def bright(self, brightness):
  *         self.c_matrix.bright(brightness)             # <<<<<<<<<<<<<<
  * 
  *     def changeChar(self, sym):
  */
-  __pyx_t_1 = __Pyx_PyInt_As_unsigned_char(__pyx_v_brightness); if (unlikely((__pyx_t_1 == (unsigned char)-1) && PyErr_Occurred())) __PYX_ERR(0, 218, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_unsigned_char(__pyx_v_brightness); if (unlikely((__pyx_t_1 == (unsigned char)-1) && PyErr_Occurred())) __PYX_ERR(0, 219, __pyx_L1_error)
   __pyx_v_self->c_matrix.bright(__pyx_t_1);
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":217
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":218
  *         self.c_matrix.fps(fps)
  * 
  *     def bright(self, brightness):             # <<<<<<<<<<<<<<
@@ -4173,7 +4026,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   return __pyx_r;
 }
 
-/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":220
+/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":221
  *         self.c_matrix.bright(brightness)
  * 
  *     def changeChar(self, sym):             # <<<<<<<<<<<<<<
@@ -4200,17 +4053,17 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   unsigned char __pyx_t_1;
   __Pyx_RefNannySetupContext("changeChar", 0);
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":221
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":222
  * 
  *     def changeChar(self, sym):
  *        self.c_matrix.changeChar(sym)             # <<<<<<<<<<<<<<
  * 
  *     def setCharWidth(self, width):
  */
-  __pyx_t_1 = __Pyx_PyInt_As_unsigned_char(__pyx_v_sym); if (unlikely((__pyx_t_1 == (unsigned char)-1) && PyErr_Occurred())) __PYX_ERR(0, 221, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_unsigned_char(__pyx_v_sym); if (unlikely((__pyx_t_1 == (unsigned char)-1) && PyErr_Occurred())) __PYX_ERR(0, 222, __pyx_L1_error)
   __pyx_v_self->c_matrix.changeChar(__pyx_t_1);
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":220
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":221
  *         self.c_matrix.bright(brightness)
  * 
  *     def changeChar(self, sym):             # <<<<<<<<<<<<<<
@@ -4230,7 +4083,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   return __pyx_r;
 }
 
-/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":223
+/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":224
  *        self.c_matrix.changeChar(sym)
  * 
  *     def setCharWidth(self, width):             # <<<<<<<<<<<<<<
@@ -4257,17 +4110,17 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   unsigned char __pyx_t_1;
   __Pyx_RefNannySetupContext("setCharWidth", 0);
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":224
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":225
  * 
  *     def setCharWidth(self, width):
  *        self.c_matrix.setCharWidth(width)             # <<<<<<<<<<<<<<
  * 
  *     def setCharInterval(self, interval):
  */
-  __pyx_t_1 = __Pyx_PyInt_As_unsigned_char(__pyx_v_width); if (unlikely((__pyx_t_1 == (unsigned char)-1) && PyErr_Occurred())) __PYX_ERR(0, 224, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_unsigned_char(__pyx_v_width); if (unlikely((__pyx_t_1 == (unsigned char)-1) && PyErr_Occurred())) __PYX_ERR(0, 225, __pyx_L1_error)
   __pyx_v_self->c_matrix.setCharWidth(__pyx_t_1);
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":223
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":224
  *        self.c_matrix.changeChar(sym)
  * 
  *     def setCharWidth(self, width):             # <<<<<<<<<<<<<<
@@ -4287,7 +4140,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   return __pyx_r;
 }
 
-/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":226
+/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":227
  *        self.c_matrix.setCharWidth(width)
  * 
  *     def setCharInterval(self, interval):             # <<<<<<<<<<<<<<
@@ -4314,17 +4167,17 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   unsigned char __pyx_t_1;
   __Pyx_RefNannySetupContext("setCharInterval", 0);
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":227
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":228
  * 
  *     def setCharInterval(self, interval):
  *        self.c_matrix.setCharInterval(interval)             # <<<<<<<<<<<<<<
  * 
  *     def setCharIndent(self, indent):
  */
-  __pyx_t_1 = __Pyx_PyInt_As_unsigned_char(__pyx_v_interval); if (unlikely((__pyx_t_1 == (unsigned char)-1) && PyErr_Occurred())) __PYX_ERR(0, 227, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_unsigned_char(__pyx_v_interval); if (unlikely((__pyx_t_1 == (unsigned char)-1) && PyErr_Occurred())) __PYX_ERR(0, 228, __pyx_L1_error)
   __pyx_v_self->c_matrix.setCharInterval(__pyx_t_1);
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":226
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":227
  *        self.c_matrix.setCharWidth(width)
  * 
  *     def setCharInterval(self, interval):             # <<<<<<<<<<<<<<
@@ -4344,7 +4197,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   return __pyx_r;
 }
 
-/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":229
+/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":230
  *        self.c_matrix.setCharInterval(interval)
  * 
  *     def setCharIndent(self, indent):             # <<<<<<<<<<<<<<
@@ -4371,17 +4224,17 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   unsigned char __pyx_t_1;
   __Pyx_RefNannySetupContext("setCharIndent", 0);
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":230
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":231
  * 
  *     def setCharIndent(self, indent):
  *        self.c_matrix.setCharIndent(indent)             # <<<<<<<<<<<<<<
  * 
  *     def getCharWidth(self):
  */
-  __pyx_t_1 = __Pyx_PyInt_As_unsigned_char(__pyx_v_indent); if (unlikely((__pyx_t_1 == (unsigned char)-1) && PyErr_Occurred())) __PYX_ERR(0, 230, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_unsigned_char(__pyx_v_indent); if (unlikely((__pyx_t_1 == (unsigned char)-1) && PyErr_Occurred())) __PYX_ERR(0, 231, __pyx_L1_error)
   __pyx_v_self->c_matrix.setCharIndent(__pyx_t_1);
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":229
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":230
  *        self.c_matrix.setCharInterval(interval)
  * 
  *     def setCharIndent(self, indent):             # <<<<<<<<<<<<<<
@@ -4401,7 +4254,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   return __pyx_r;
 }
 
-/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":232
+/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":233
  *        self.c_matrix.setCharIndent(indent)
  * 
  *     def getCharWidth(self):             # <<<<<<<<<<<<<<
@@ -4428,7 +4281,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("getCharWidth", 0);
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":233
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":234
  * 
  *     def getCharWidth(self):
  *         return self.c_matrix.getCharWidth()             # <<<<<<<<<<<<<<
@@ -4436,13 +4289,13 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
  *     def getCharInterval(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_unsigned_char(__pyx_v_self->c_matrix.getCharWidth()); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 233, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_unsigned_char(__pyx_v_self->c_matrix.getCharWidth()); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 234, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":232
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":233
  *        self.c_matrix.setCharIndent(indent)
  * 
  *     def getCharWidth(self):             # <<<<<<<<<<<<<<
@@ -4461,7 +4314,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   return __pyx_r;
 }
 
-/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":235
+/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":236
  *         return self.c_matrix.getCharWidth()
  * 
  *     def getCharInterval(self):             # <<<<<<<<<<<<<<
@@ -4488,7 +4341,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("getCharInterval", 0);
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":236
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":237
  * 
  *     def getCharInterval(self):
  *         return self.c_matrix.getCharInterval()             # <<<<<<<<<<<<<<
@@ -4496,13 +4349,13 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
  *     def getCharIndent(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_unsigned_char(__pyx_v_self->c_matrix.getCharInterval()); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 236, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_unsigned_char(__pyx_v_self->c_matrix.getCharInterval()); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 237, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":235
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":236
  *         return self.c_matrix.getCharWidth()
  * 
  *     def getCharInterval(self):             # <<<<<<<<<<<<<<
@@ -4521,7 +4374,7 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   return __pyx_r;
 }
 
-/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":238
+/* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":239
  *         return self.c_matrix.getCharInterval()
  * 
  *     def getCharIndent(self):             # <<<<<<<<<<<<<<
@@ -4547,19 +4400,19 @@ static PyObject *__pyx_pf_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_19pyiArdui
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("getCharIndent", 0);
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":239
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":240
  * 
  *     def getCharIndent(self):
  *         return self.c_matrix.getCharIndent()             # <<<<<<<<<<<<<<
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_unsigned_char(__pyx_v_self->c_matrix.getCharIndent()); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 239, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_unsigned_char(__pyx_v_self->c_matrix.getCharIndent()); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 240, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":238
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":239
  *         return self.c_matrix.getCharInterval()
  * 
  *     def getCharIndent(self):             # <<<<<<<<<<<<<<
@@ -4906,33 +4759,30 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_u_drawImage_2, __pyx_k_drawImage_2, sizeof(__pyx_k_drawImage_2), 0, 1, 0, 0},
   {&__pyx_n_s_encode, __pyx_k_encode, sizeof(__pyx_k_encode), 0, 0, 1, 1},
   {&__pyx_n_s_getstate, __pyx_k_getstate, sizeof(__pyx_k_getstate), 0, 0, 1, 1},
+  {&__pyx_n_s_import, __pyx_k_import, sizeof(__pyx_k_import), 0, 0, 1, 1},
   {&__pyx_n_s_interval, __pyx_k_interval, sizeof(__pyx_k_interval), 0, 0, 1, 1},
   {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
   {&__pyx_n_s_mes, __pyx_k_mes, sizeof(__pyx_k_mes), 0, 0, 1, 1},
   {&__pyx_n_s_name, __pyx_k_name, sizeof(__pyx_k_name), 0, 0, 1, 1},
-  {&__pyx_n_s_name_2, __pyx_k_name_2, sizeof(__pyx_k_name_2), 0, 0, 1, 1},
-  {&__pyx_n_s_namespace, __pyx_k_namespace, sizeof(__pyx_k_namespace), 0, 0, 1, 1},
-  {&__pyx_n_s_namestr, __pyx_k_namestr, sizeof(__pyx_k_namestr), 0, 0, 1, 1},
   {&__pyx_kp_s_no_default___reduce___due_to_non, __pyx_k_no_default___reduce___due_to_non, sizeof(__pyx_k_no_default___reduce___due_to_non), 0, 0, 1, 0},
-  {&__pyx_n_s_obj, __pyx_k_obj, sizeof(__pyx_k_obj), 0, 0, 1, 1},
   {&__pyx_n_s_print, __pyx_k_print, sizeof(__pyx_k_print), 0, 0, 1, 1},
   {&__pyx_kp_u_print_2, __pyx_k_print_2, sizeof(__pyx_k_print_2), 0, 1, 0, 0},
   {&__pyx_kp_u_print_3, __pyx_k_print_3, sizeof(__pyx_k_print_3), 0, 1, 0, 0},
   {&__pyx_n_s_pyiArduinoI2Cmatrix, __pyx_k_pyiArduinoI2Cmatrix, sizeof(__pyx_k_pyiArduinoI2Cmatrix), 0, 0, 1, 1},
-  {&__pyx_n_s_pyiArduinoI2Cmatrix_pyiArduinoI2, __pyx_k_pyiArduinoI2Cmatrix_pyiArduinoI2, sizeof(__pyx_k_pyiArduinoI2Cmatrix_pyiArduinoI2), 0, 0, 1, 1},
-  {&__pyx_kp_s_pyiArduinoI2Cmatrix_pyx, __pyx_k_pyiArduinoI2Cmatrix_pyx, sizeof(__pyx_k_pyiArduinoI2Cmatrix_pyx), 0, 0, 1, 0},
   {&__pyx_n_s_reduce, __pyx_k_reduce, sizeof(__pyx_k_reduce), 0, 0, 1, 1},
   {&__pyx_n_s_reduce_cython, __pyx_k_reduce_cython, sizeof(__pyx_k_reduce_cython), 0, 0, 1, 1},
   {&__pyx_n_s_reduce_ex, __pyx_k_reduce_ex, sizeof(__pyx_k_reduce_ex), 0, 0, 1, 1},
   {&__pyx_n_s_setstate, __pyx_k_setstate, sizeof(__pyx_k_setstate), 0, 0, 1, 1},
   {&__pyx_n_s_setstate_cython, __pyx_k_setstate_cython, sizeof(__pyx_k_setstate_cython), 0, 0, 1, 1},
+  {&__pyx_n_s_sleep, __pyx_k_sleep, sizeof(__pyx_k_sleep), 0, 0, 1, 1},
   {&__pyx_n_s_speed, __pyx_k_speed, sizeof(__pyx_k_speed), 0, 0, 1, 1},
   {&__pyx_n_s_test, __pyx_k_test, sizeof(__pyx_k_test), 0, 0, 1, 1},
+  {&__pyx_n_s_time, __pyx_k_time, sizeof(__pyx_k_time), 0, 0, 1, 1},
   {&__pyx_kp_u_utf_8, __pyx_k_utf_8, sizeof(__pyx_k_utf_8), 0, 1, 0, 0},
   {0, 0, 0, 0, 0, 0, 0}
 };
 static CYTHON_SMALL_CODE int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_print = __Pyx_GetBuiltinName(__pyx_n_s_print); if (!__pyx_builtin_print) __PYX_ERR(0, 89, __pyx_L1_error)
+  __pyx_builtin_print = __Pyx_GetBuiltinName(__pyx_n_s_print); if (!__pyx_builtin_print) __PYX_ERR(0, 90, __pyx_L1_error)
   __pyx_builtin_TypeError = __Pyx_GetBuiltinName(__pyx_n_s_TypeError); if (!__pyx_builtin_TypeError) __PYX_ERR(1, 2, __pyx_L1_error)
   return 0;
   __pyx_L1_error:;
@@ -4943,58 +4793,58 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":89
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":90
  *             self.c_matrix.codingDetect(str.encode(letter_p))
  *         else:
  *             print(":     ''")             # <<<<<<<<<<<<<<
  * 
  *     def clrScr(self, ani = None):
  */
-  __pyx_tuple__2 = PyTuple_Pack(1, __pyx_kp_u_); if (unlikely(!__pyx_tuple__2)) __PYX_ERR(0, 89, __pyx_L1_error)
+  __pyx_tuple__2 = PyTuple_Pack(1, __pyx_kp_u_); if (unlikely(!__pyx_tuple__2)) __PYX_ERR(0, 90, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__2);
   __Pyx_GIVEREF(__pyx_tuple__2);
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":114
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":115
  *                 self.c_matrix.drawImage(b, ani, 0)
  *             else:
  *                 print("   : "             # <<<<<<<<<<<<<<
  *                       +"    \n"
  *                       + " :\n"
  */
-  __pyx_tuple__3 = PyTuple_Pack(1, __pyx_kp_u_drawImage); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(0, 114, __pyx_L1_error)
+  __pyx_tuple__3 = PyTuple_Pack(1, __pyx_kp_u_drawImage); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(0, 115, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__3);
   __Pyx_GIVEREF(__pyx_tuple__3);
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":119
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":120
  *                       + ".drawImage(,  )")
  *         else:
  *             print("   : "             # <<<<<<<<<<<<<<
  *                   + "   \n"
  *                   + " :\n"
  */
-  __pyx_tuple__4 = PyTuple_Pack(1, __pyx_kp_u_drawImage_2); if (unlikely(!__pyx_tuple__4)) __PYX_ERR(0, 119, __pyx_L1_error)
+  __pyx_tuple__4 = PyTuple_Pack(1, __pyx_kp_u_drawImage_2); if (unlikely(!__pyx_tuple__4)) __PYX_ERR(0, 120, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__4);
   __Pyx_GIVEREF(__pyx_tuple__4);
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":161
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":162
  *                 self.c_matrix.print(b, ani)
  *             else:
  *                 print("   : "             # <<<<<<<<<<<<<<
  *                       +"    \n"
  *                       + " :\n"
  */
-  __pyx_tuple__5 = PyTuple_Pack(1, __pyx_kp_u_print_2); if (unlikely(!__pyx_tuple__5)) __PYX_ERR(0, 161, __pyx_L1_error)
+  __pyx_tuple__5 = PyTuple_Pack(1, __pyx_kp_u_print_2); if (unlikely(!__pyx_tuple__5)) __PYX_ERR(0, 162, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__5);
   __Pyx_GIVEREF(__pyx_tuple__5);
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":176
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":177
  *                       + ".print(   ,  )")
  *         else:
  *             print("   : "             # <<<<<<<<<<<<<<
  *                   + "      \n"
  *                   + " :\n"
  */
-  __pyx_tuple__6 = PyTuple_Pack(1, __pyx_kp_u_print_3); if (unlikely(!__pyx_tuple__6)) __PYX_ERR(0, 176, __pyx_L1_error)
+  __pyx_tuple__6 = PyTuple_Pack(1, __pyx_kp_u_print_3); if (unlikely(!__pyx_tuple__6)) __PYX_ERR(0, 177, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__6);
   __Pyx_GIVEREF(__pyx_tuple__6);
 
@@ -5016,18 +4866,6 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __pyx_tuple__8 = PyTuple_Pack(1, __pyx_kp_s_no_default___reduce___due_to_non); if (unlikely(!__pyx_tuple__8)) __PYX_ERR(1, 4, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__8);
   __Pyx_GIVEREF(__pyx_tuple__8);
-
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":48
- * X8_TXT_WIN1251      =   2
- * #
- * def namestr(obj, namespace):             # <<<<<<<<<<<<<<
- *     return [name for name in namespace if namespace[name] is obj]
- * 
- */
-  __pyx_tuple__9 = PyTuple_Pack(3, __pyx_n_s_obj, __pyx_n_s_namespace, __pyx_n_s_name_2); if (unlikely(!__pyx_tuple__9)) __PYX_ERR(0, 48, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__9);
-  __Pyx_GIVEREF(__pyx_tuple__9);
-  __pyx_codeobj__10 = (PyObject*)__Pyx_PyCode_New(2, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__9, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pyiArduinoI2Cmatrix_pyx, __pyx_n_s_namestr, 48, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__10)) __PYX_ERR(0, 48, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -5037,6 +4875,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
 
 static CYTHON_SMALL_CODE int __Pyx_InitGlobals(void) {
   if (__Pyx_InitStrings(__pyx_string_tab) < 0) __PYX_ERR(0, 1, __pyx_L1_error);
+  __pyx_float__5 = PyFloat_FromDouble(.5); if (unlikely(!__pyx_float__5)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_0 = PyInt_FromLong(0); if (unlikely(!__pyx_int_0)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_1 = PyInt_FromLong(1); if (unlikely(!__pyx_int_1)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_2 = PyInt_FromLong(2); if (unlikely(!__pyx_int_2)) __PYX_ERR(0, 1, __pyx_L1_error)
@@ -5109,15 +4948,15 @@ static int __Pyx_modinit_type_init_code(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_modinit_type_init_code", 0);
   /*--- Type init code ---*/
-  if (PyType_Ready(&__pyx_type_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_pyiArduinoI2Cmatrix) < 0) __PYX_ERR(0, 53, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_pyiArduinoI2Cmatrix) < 0) __PYX_ERR(0, 52, __pyx_L1_error)
   #if PY_VERSION_HEX < 0x030800B1
   __pyx_type_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_pyiArduinoI2Cmatrix.tp_print = 0;
   #endif
   if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_pyiArduinoI2Cmatrix.tp_dictoffset && __pyx_type_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_pyiArduinoI2Cmatrix.tp_getattro == PyObject_GenericGetAttr)) {
     __pyx_type_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_pyiArduinoI2Cmatrix.tp_getattro = __Pyx_PyObject_GenericGetAttr;
   }
-  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_pyiArduinoI2Cmatrix, (PyObject *)&__pyx_type_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_pyiArduinoI2Cmatrix) < 0) __PYX_ERR(0, 53, __pyx_L1_error)
-  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_pyiArduinoI2Cmatrix) < 0) __PYX_ERR(0, 53, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_pyiArduinoI2Cmatrix, (PyObject *)&__pyx_type_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_pyiArduinoI2Cmatrix) < 0) __PYX_ERR(0, 52, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_pyiArduinoI2Cmatrix) < 0) __PYX_ERR(0, 52, __pyx_L1_error)
   __pyx_ptype_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_pyiArduinoI2Cmatrix = &__pyx_type_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_pyiArduinoI2Cmatrix;
   __Pyx_RefNannyFinishContext();
   return 0;
@@ -5243,6 +5082,7 @@ static CYTHON_SMALL_CODE int __pyx_pymod_exec_pyiArduinoI2Cmatrix(PyObject *__py
 #endif
 {
   PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
   __Pyx_RefNannyDeclarations
   #if CYTHON_PEP489_MULTI_PHASE_INIT
   if (__pyx_m) {
@@ -5676,37 +5516,47 @@ if (!__Pyx_RefNanny) {
  * X8_TXT_UTF8         =   1
  * X8_TXT_WIN1251      =   2             # <<<<<<<<<<<<<<
  * #
- * def namestr(obj, namespace):
+ * 
  */
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_X8_TXT_WIN1251, __pyx_int_2) < 0) __PYX_ERR(0, 46, __pyx_L1_error)
 
-  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":48
- * X8_TXT_WIN1251      =   2
- * #
- * def namestr(obj, namespace):             # <<<<<<<<<<<<<<
- *     return [name for name in namespace if namespace[name] is obj]
+  /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":50
  * 
+ * from iarduino_I2C_Matrix_8x8 cimport iarduino_I2C_Matrix_8x8
+ * from time import sleep             # <<<<<<<<<<<<<<
+ * 
+ * cdef class pyiArduinoI2Cmatrix:
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_19pyiArduinoI2Cmatrix_19pyiArduinoI2Cmatrix_1namestr, NULL, __pyx_n_s_pyiArduinoI2Cmatrix_pyiArduinoI2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 48, __pyx_L1_error)
+  __pyx_t_1 = PyList_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 50, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_namestr, __pyx_t_1) < 0) __PYX_ERR(0, 48, __pyx_L1_error)
+  __Pyx_INCREF(__pyx_n_s_sleep);
+  __Pyx_GIVEREF(__pyx_n_s_sleep);
+  PyList_SET_ITEM(__pyx_t_1, 0, __pyx_n_s_sleep);
+  __pyx_t_2 = __Pyx_Import(__pyx_n_s_time, __pyx_t_1, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 50, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_1 = __Pyx_ImportFrom(__pyx_t_2, __pyx_n_s_sleep); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 50, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_sleep, __pyx_t_1) < 0) __PYX_ERR(0, 50, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "pyiArduinoI2Cmatrix/pyiArduinoI2Cmatrix.pyx":1
  * # distutils: language = c++             # <<<<<<<<<<<<<<
  * # cython: language_level = 3
  * #encoding = utf-8
  */
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_test, __pyx_t_1) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_t_2 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_test, __pyx_t_2) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /*--- Wrapped vars code ---*/
 
   goto __pyx_L0;
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
   if (__pyx_m) {
     if (__pyx_d) {
       __Pyx_AddTraceback("init pyiArduinoI2Cmatrix.pyiArduinoI2Cmatrix", __pyx_clineno, __pyx_lineno, __pyx_filename);
@@ -5770,32 +5620,6 @@ static PyObject *__Pyx_GetBuiltinName(PyObject *name) {
 #endif
     }
     return result;
-}
-
-/* RaiseArgTupleInvalid */
-static void __Pyx_RaiseArgtupleInvalid(
-    const char* func_name,
-    int exact,
-    Py_ssize_t num_min,
-    Py_ssize_t num_max,
-    Py_ssize_t num_found)
-{
-    Py_ssize_t num_expected;
-    const char *more_or_less;
-    if (num_found < num_min) {
-        num_expected = num_min;
-        more_or_less = "at least";
-    } else {
-        num_expected = num_max;
-        more_or_less = "at most";
-    }
-    if (exact) {
-        more_or_less = "exactly";
-    }
-    PyErr_Format(PyExc_TypeError,
-                 "%.200s() takes %.8s %" CYTHON_FORMAT_SSIZE_T "d positional argument%.1s (%" CYTHON_FORMAT_SSIZE_T "d given)",
-                 func_name, more_or_less, num_expected,
-                 (num_expected == 1) ? "" : "s", num_found);
 }
 
 /* RaiseDoubleKeywords */
@@ -5914,121 +5738,92 @@ bad:
     return -1;
 }
 
-/* GetItemInt */
-static PyObject *__Pyx_GetItemInt_Generic(PyObject *o, PyObject* j) {
-    PyObject *r;
-    if (!j) return NULL;
-    r = PyObject_GetItem(o, j);
-    Py_DECREF(j);
-    return r;
-}
-static CYTHON_INLINE PyObject *__Pyx_GetItemInt_List_Fast(PyObject *o, Py_ssize_t i,
-                                                              CYTHON_NCP_UNUSED int wraparound,
-                                                              CYTHON_NCP_UNUSED int boundscheck) {
-#if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-    Py_ssize_t wrapped_i = i;
-    if (wraparound & unlikely(i < 0)) {
-        wrapped_i += PyList_GET_SIZE(o);
-    }
-    if ((!boundscheck) || likely(__Pyx_is_valid_index(wrapped_i, PyList_GET_SIZE(o)))) {
-        PyObject *r = PyList_GET_ITEM(o, wrapped_i);
-        Py_INCREF(r);
-        return r;
-    }
-    return __Pyx_GetItemInt_Generic(o, PyInt_FromSsize_t(i));
-#else
-    return PySequence_GetItem(o, i);
-#endif
-}
-static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Tuple_Fast(PyObject *o, Py_ssize_t i,
-                                                              CYTHON_NCP_UNUSED int wraparound,
-                                                              CYTHON_NCP_UNUSED int boundscheck) {
-#if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-    Py_ssize_t wrapped_i = i;
-    if (wraparound & unlikely(i < 0)) {
-        wrapped_i += PyTuple_GET_SIZE(o);
-    }
-    if ((!boundscheck) || likely(__Pyx_is_valid_index(wrapped_i, PyTuple_GET_SIZE(o)))) {
-        PyObject *r = PyTuple_GET_ITEM(o, wrapped_i);
-        Py_INCREF(r);
-        return r;
-    }
-    return __Pyx_GetItemInt_Generic(o, PyInt_FromSsize_t(i));
-#else
-    return PySequence_GetItem(o, i);
-#endif
-}
-static CYTHON_INLINE PyObject *__Pyx_GetItemInt_Fast(PyObject *o, Py_ssize_t i, int is_list,
-                                                     CYTHON_NCP_UNUSED int wraparound,
-                                                     CYTHON_NCP_UNUSED int boundscheck) {
-#if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS && CYTHON_USE_TYPE_SLOTS
-    if (is_list || PyList_CheckExact(o)) {
-        Py_ssize_t n = ((!wraparound) | likely(i >= 0)) ? i : i + PyList_GET_SIZE(o);
-        if ((!boundscheck) || (likely(__Pyx_is_valid_index(n, PyList_GET_SIZE(o))))) {
-            PyObject *r = PyList_GET_ITEM(o, n);
-            Py_INCREF(r);
-            return r;
-        }
-    }
-    else if (PyTuple_CheckExact(o)) {
-        Py_ssize_t n = ((!wraparound) | likely(i >= 0)) ? i : i + PyTuple_GET_SIZE(o);
-        if ((!boundscheck) || likely(__Pyx_is_valid_index(n, PyTuple_GET_SIZE(o)))) {
-            PyObject *r = PyTuple_GET_ITEM(o, n);
-            Py_INCREF(r);
-            return r;
-        }
+/* RaiseArgTupleInvalid */
+static void __Pyx_RaiseArgtupleInvalid(
+    const char* func_name,
+    int exact,
+    Py_ssize_t num_min,
+    Py_ssize_t num_max,
+    Py_ssize_t num_found)
+{
+    Py_ssize_t num_expected;
+    const char *more_or_less;
+    if (num_found < num_min) {
+        num_expected = num_min;
+        more_or_less = "at least";
     } else {
-        PySequenceMethods *m = Py_TYPE(o)->tp_as_sequence;
-        if (likely(m && m->sq_item)) {
-            if (wraparound && unlikely(i < 0) && likely(m->sq_length)) {
-                Py_ssize_t l = m->sq_length(o);
-                if (likely(l >= 0)) {
-                    i += l;
-                } else {
-                    if (!PyErr_ExceptionMatches(PyExc_OverflowError))
-                        return NULL;
-                    PyErr_Clear();
-                }
-            }
-            return m->sq_item(o, i);
-        }
+        num_expected = num_max;
+        more_or_less = "at most";
     }
-#else
-    if (is_list || PySequence_Check(o)) {
-        return PySequence_GetItem(o, i);
+    if (exact) {
+        more_or_less = "exactly";
     }
-#endif
-    return __Pyx_GetItemInt_Generic(o, PyInt_FromSsize_t(i));
+    PyErr_Format(PyExc_TypeError,
+                 "%.200s() takes %.8s %" CYTHON_FORMAT_SSIZE_T "d positional argument%.1s (%" CYTHON_FORMAT_SSIZE_T "d given)",
+                 func_name, more_or_less, num_expected,
+                 (num_expected == 1) ? "" : "s", num_found);
 }
 
-/* ObjectGetItem */
-#if CYTHON_USE_TYPE_SLOTS
-static PyObject *__Pyx_PyObject_GetIndex(PyObject *obj, PyObject* index) {
-    PyObject *runerr;
-    Py_ssize_t key_value;
-    PySequenceMethods *m = Py_TYPE(obj)->tp_as_sequence;
-    if (unlikely(!(m && m->sq_item))) {
-        PyErr_Format(PyExc_TypeError, "'%.200s' object is not subscriptable", Py_TYPE(obj)->tp_name);
-        return NULL;
-    }
-    key_value = __Pyx_PyIndex_AsSsize_t(index);
-    if (likely(key_value != -1 || !(runerr = PyErr_Occurred()))) {
-        return __Pyx_GetItemInt_Fast(obj, key_value, 0, 1, 1);
-    }
-    if (PyErr_GivenExceptionMatches(runerr, PyExc_OverflowError)) {
-        PyErr_Clear();
-        PyErr_Format(PyExc_IndexError, "cannot fit '%.200s' into an index-sized integer", Py_TYPE(index)->tp_name);
-    }
-    return NULL;
+/* PyDictVersioning */
+#if CYTHON_USE_DICT_VERSIONS && CYTHON_USE_TYPE_SLOTS
+static CYTHON_INLINE PY_UINT64_T __Pyx_get_tp_dict_version(PyObject *obj) {
+    PyObject *dict = Py_TYPE(obj)->tp_dict;
+    return likely(dict) ? __PYX_GET_DICT_VERSION(dict) : 0;
 }
-static PyObject *__Pyx_PyObject_GetItem(PyObject *obj, PyObject* key) {
-    PyMappingMethods *m = Py_TYPE(obj)->tp_as_mapping;
-    if (likely(m && m->mp_subscript)) {
-        return m->mp_subscript(obj, key);
+static CYTHON_INLINE PY_UINT64_T __Pyx_get_object_dict_version(PyObject *obj) {
+    PyObject **dictptr = NULL;
+    Py_ssize_t offset = Py_TYPE(obj)->tp_dictoffset;
+    if (offset) {
+#if CYTHON_COMPILING_IN_CPYTHON
+        dictptr = (likely(offset > 0)) ? (PyObject **) ((char *)obj + offset) : _PyObject_GetDictPtr(obj);
+#else
+        dictptr = _PyObject_GetDictPtr(obj);
+#endif
     }
-    return __Pyx_PyObject_GetIndex(obj, key);
+    return (dictptr && *dictptr) ? __PYX_GET_DICT_VERSION(*dictptr) : 0;
+}
+static CYTHON_INLINE int __Pyx_object_dict_version_matches(PyObject* obj, PY_UINT64_T tp_dict_version, PY_UINT64_T obj_dict_version) {
+    PyObject *dict = Py_TYPE(obj)->tp_dict;
+    if (unlikely(!dict) || unlikely(tp_dict_version != __PYX_GET_DICT_VERSION(dict)))
+        return 0;
+    return obj_dict_version == __Pyx_get_object_dict_version(obj);
 }
 #endif
+
+/* GetModuleGlobalName */
+#if CYTHON_USE_DICT_VERSIONS
+static PyObject *__Pyx__GetModuleGlobalName(PyObject *name, PY_UINT64_T *dict_version, PyObject **dict_cached_value)
+#else
+static CYTHON_INLINE PyObject *__Pyx__GetModuleGlobalName(PyObject *name)
+#endif
+{
+    PyObject *result;
+#if !CYTHON_AVOID_BORROWED_REFS
+#if CYTHON_COMPILING_IN_CPYTHON && PY_VERSION_HEX >= 0x030500A1
+    result = _PyDict_GetItem_KnownHash(__pyx_d, name, ((PyASCIIObject *) name)->hash);
+    __PYX_UPDATE_DICT_CACHE(__pyx_d, result, *dict_cached_value, *dict_version)
+    if (likely(result)) {
+        return __Pyx_NewRef(result);
+    } else if (unlikely(PyErr_Occurred())) {
+        return NULL;
+    }
+#else
+    result = PyDict_GetItem(__pyx_d, name);
+    __PYX_UPDATE_DICT_CACHE(__pyx_d, result, *dict_cached_value, *dict_version)
+    if (likely(result)) {
+        return __Pyx_NewRef(result);
+    }
+#endif
+#else
+    result = PyObject_GetItem(__pyx_d, name);
+    __PYX_UPDATE_DICT_CACHE(__pyx_d, result, *dict_cached_value, *dict_version)
+    if (likely(result)) {
+        return __Pyx_NewRef(result);
+    }
+    PyErr_Clear();
+#endif
+    return __Pyx_GetBuiltinName(name);
+}
 
 /* PyCFunctionFastCall */
 #if CYTHON_FAST_PYCCALL
@@ -6590,31 +6385,84 @@ GOOD:
     return ret;
 }
 
-/* PyDictVersioning */
-#if CYTHON_USE_DICT_VERSIONS && CYTHON_USE_TYPE_SLOTS
-static CYTHON_INLINE PY_UINT64_T __Pyx_get_tp_dict_version(PyObject *obj) {
-    PyObject *dict = Py_TYPE(obj)->tp_dict;
-    return likely(dict) ? __PYX_GET_DICT_VERSION(dict) : 0;
-}
-static CYTHON_INLINE PY_UINT64_T __Pyx_get_object_dict_version(PyObject *obj) {
-    PyObject **dictptr = NULL;
-    Py_ssize_t offset = Py_TYPE(obj)->tp_dictoffset;
-    if (offset) {
-#if CYTHON_COMPILING_IN_CPYTHON
-        dictptr = (likely(offset > 0)) ? (PyObject **) ((char *)obj + offset) : _PyObject_GetDictPtr(obj);
-#else
-        dictptr = _PyObject_GetDictPtr(obj);
-#endif
+/* Import */
+static PyObject *__Pyx_Import(PyObject *name, PyObject *from_list, int level) {
+    PyObject *empty_list = 0;
+    PyObject *module = 0;
+    PyObject *global_dict = 0;
+    PyObject *empty_dict = 0;
+    PyObject *list;
+    #if PY_MAJOR_VERSION < 3
+    PyObject *py_import;
+    py_import = __Pyx_PyObject_GetAttrStr(__pyx_b, __pyx_n_s_import);
+    if (!py_import)
+        goto bad;
+    #endif
+    if (from_list)
+        list = from_list;
+    else {
+        empty_list = PyList_New(0);
+        if (!empty_list)
+            goto bad;
+        list = empty_list;
     }
-    return (dictptr && *dictptr) ? __PYX_GET_DICT_VERSION(*dictptr) : 0;
+    global_dict = PyModule_GetDict(__pyx_m);
+    if (!global_dict)
+        goto bad;
+    empty_dict = PyDict_New();
+    if (!empty_dict)
+        goto bad;
+    {
+        #if PY_MAJOR_VERSION >= 3
+        if (level == -1) {
+            if (strchr(__Pyx_MODULE_NAME, '.')) {
+                module = PyImport_ImportModuleLevelObject(
+                    name, global_dict, empty_dict, list, 1);
+                if (!module) {
+                    if (!PyErr_ExceptionMatches(PyExc_ImportError))
+                        goto bad;
+                    PyErr_Clear();
+                }
+            }
+            level = 0;
+        }
+        #endif
+        if (!module) {
+            #if PY_MAJOR_VERSION < 3
+            PyObject *py_level = PyInt_FromLong(level);
+            if (!py_level)
+                goto bad;
+            module = PyObject_CallFunctionObjArgs(py_import,
+                name, global_dict, empty_dict, list, py_level, (PyObject *)NULL);
+            Py_DECREF(py_level);
+            #else
+            module = PyImport_ImportModuleLevelObject(
+                name, global_dict, empty_dict, list, level);
+            #endif
+        }
+    }
+bad:
+    #if PY_MAJOR_VERSION < 3
+    Py_XDECREF(py_import);
+    #endif
+    Py_XDECREF(empty_list);
+    Py_XDECREF(empty_dict);
+    return module;
 }
-static CYTHON_INLINE int __Pyx_object_dict_version_matches(PyObject* obj, PY_UINT64_T tp_dict_version, PY_UINT64_T obj_dict_version) {
-    PyObject *dict = Py_TYPE(obj)->tp_dict;
-    if (unlikely(!dict) || unlikely(tp_dict_version != __PYX_GET_DICT_VERSION(dict)))
-        return 0;
-    return obj_dict_version == __Pyx_get_object_dict_version(obj);
+
+/* ImportFrom */
+static PyObject* __Pyx_ImportFrom(PyObject* module, PyObject* name) {
+    PyObject* value = __Pyx_PyObject_GetAttrStr(module, name);
+    if (unlikely(!value) && PyErr_ExceptionMatches(PyExc_AttributeError)) {
+        PyErr_Format(PyExc_ImportError,
+        #if PY_MAJOR_VERSION < 3
+            "cannot import name %.230s", PyString_AS_STRING(name));
+        #else
+            "cannot import name %S", name);
+        #endif
+    }
+    return value;
 }
-#endif
 
 /* CLineInTraceback */
 #ifndef CYTHON_CLINE_IN_TRACEBACK

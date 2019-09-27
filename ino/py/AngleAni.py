@@ -8,6 +8,7 @@ image = [0b00111100,                               #
                        0b10000000,                               #                            
                        0b01000000,                               #                            
                        0b00100000]                               #                            
+image2 = [0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF]
 import sys
 from pyiArduinoI2Cmatrix import *
 from time import sleep
@@ -16,10 +17,17 @@ disp = pyiArduinoI2Cmatrix(int(sys.argv[1]))
 #iarduino_I2C_Matrix_8x8 disp(0x09)                               # Объявляем объект disp для работы с LED матрицей 8x8, указывая её адрес на шине I2C.
                                                                  #
 disp.bright(255)
-disp.drawImage(image)                                        # Выводим на дисплей изображение массива image.
-                                                                 # Далее поворачиваем дисплей, значит будут повёрнуты не только имеющиеся, но и вновь выводимые данные.
-while True:                                                      #
-    disp.angle(0)  , sleep(.1)                                  # Поворачиваем дисплей на 0°   и ждём 0.1 секунду.
-    disp.angle(90) , sleep(.1)                                  # Поворачиваем дисплей на 90°  и ждём 0.1 секунду.
-    disp.angle(180), sleep(.1)                                  # Поворачиваем дисплей на 180° и ждём 0.1 секунду.
-    disp.angle(270), sleep(.1)                                  # Поворачиваем дисплей на 270° и ждём 0.1 секунду.
+try:
+    while True:
+        i = 0
+        disp.drawImage(image, 102)                                        # Выводим на дисплей изображение массива image.
+        while i < 10:                                                      #
+            disp.angle(0)  , sleep(.1)                                  # Поворачиваем дисплей на 0°   и ждём 0.1 секунду.
+            disp.angle(90) , sleep(.1)                                  # Поворачиваем дисплей на 90°  и ждём 0.1 секунду.
+            disp.angle(180), sleep(.1)                                  # Поворачиваем дисплей на 180° и ждём 0.1 секунду.
+            disp.angle(270), sleep(.1)                                  # Поворачиваем дисплей на 270° и ждём 0.1 секунду.
+            i += 1
+        disp.drawImage(image2, 100)                                        # Выводим на дисплей изображение массива image.
+        sleep(1)
+except KeyboardInterrupt:
+    disp.angle(0)

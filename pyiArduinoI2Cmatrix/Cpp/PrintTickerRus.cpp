@@ -3,8 +3,9 @@
 #include "../iarduino_I2C_Matrix_8x8.h"                             // Подключаем библиотеку для работы с LED матрицей 8x8.
 iarduino_I2C_Matrix_8x8 disp(0x0c);                              // Объявляем объект disp для работы с LED матрицей 8x8, указывая её адрес на шине I2C.
                                                                  //
-int main(){                                                    //
+int main(int argc, char** argv){                                                    //
     delay(500);                                                  // Ждём завершение переходных процессов связанных с подачей питания.
+    disp = 9; //int(argv[1]);
     disp.begin();                                                // Инициируем работу с LED матрицей 8x8.
     disp.codingDetect("п");                                      // Выполняем автоопределение кодировки сценария.
     disp.print("Unknown coding");                                // Загружаем текст "Unknown coding" для бегущей строки.
