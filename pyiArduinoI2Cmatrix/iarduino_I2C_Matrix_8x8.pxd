@@ -1,7 +1,7 @@
 cdef extern from "iarduino_I2C_Matrix_8x8.cpp":
     pass
 
-cdef extern from "itoa.c":
+cdef extern from "itoa.cpp":
     pass
 
 cdef extern from "dtostrf.cpp":
