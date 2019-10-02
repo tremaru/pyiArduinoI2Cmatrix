@@ -9,7 +9,7 @@
             "iarduino_I2C_Matrix_8x8.cpp",
             "iarduino_I2C_Matrix_8x8.h",
             "iarduino_I2C_PI.h",
-            "itoa.c"
+            "itoa.cpp"
         ],
         "include_dirs": [
             "."
@@ -632,7 +632,7 @@ static CYTHON_INLINE float __PYX_NAN() {
 #define __PYX_HAVE_API__pyiArduinoI2Cmatrix__pyiArduinoI2Cmatrix
 /* Early includes */
 #include "iarduino_I2C_Matrix_8x8.cpp"
-#include "itoa.c"
+#include "itoa.cpp"
 #include "dtostrf.cpp"
 #include "WString.cpp"
 #include "ios"
