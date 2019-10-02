@@ -44,6 +44,8 @@ X8_IMG_ROM          =   1
 X8_TXT_CP866        =   0   
 X8_TXT_UTF8         =   1   
 X8_TXT_WIN1251      =   2   
+#Выключение автоинициализации
+NO_BEGIN = 1
 
 from iarduino_I2C_Matrix_8x8 cimport iarduino_I2C_Matrix_8x8
 from time import sleep
@@ -51,15 +53,17 @@ from time import sleep
 cdef class pyiArduinoI2Cmatrix:
     cdef iarduino_I2C_Matrix_8x8 c_matrix
 
-    def __cinit__(self, address=None):
+    def __cinit__(self, address=None, auto=None):
         if address is not None:
             self.c_matrix = iarduino_I2C_Matrix_8x8(address)
-            sleep(.5)
-            self.c_matrix.begin()
+            if auto is None:
+                sleep(.5)
+                self.c_matrix.begin()
         else:
             self.c_matrix = iarduino_I2C_Matrix_8x8()
-            sleep(.5)
-            self.c_matrix.begin()
+            if auto is None:
+                sleep(.5)
+                self.c_matrix.begin()
 
     def begin(self):
         return self.c_matrix.begin()
