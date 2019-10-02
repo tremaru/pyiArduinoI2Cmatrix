@@ -44,7 +44,6 @@ X8_IMG_ROM          =   1
 X8_TXT_CP866        =   0   
 X8_TXT_UTF8         =   1   
 X8_TXT_WIN1251      =   2   
-#функция для вывода названия переменной для ошибок
 
 from iarduino_I2C_Matrix_8x8 cimport iarduino_I2C_Matrix_8x8
 from time import sleep
@@ -168,6 +167,16 @@ cdef class pyiArduinoI2Cmatrix:
                 self.c_matrix.printNum(mes, 0)
             elif isinstance(ani, int):
                 self.c_matrix.printNum(mes, ani)
+            else:
+                print("неверен второй аргумент функции: "
+                      +" должен быть целым числом\n"
+                      + "вызов функции:\n"
+                      + ".print(СТРОКА или ЦЕЛОЕ ЧИСЛО, ЦЕЛОЕ ЧИСЛО)")
+        elif isinstance(mes, float):
+            if ani is None:
+                self.c_matrix.printNum(int(mes), 0)
+            elif isinstance(ani, int):
+                self.c_matrix.printNum(int(mes), ani)
             else:
                 print("неверен второй аргумент функции: "
                       +" должен быть целым числом\n"

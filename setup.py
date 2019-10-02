@@ -5,7 +5,7 @@ with open("README.md", "r") as readme:
     long_description = readme.read()
 
 setup(name='pyiArduinoI2Cmatrix',
-    version='1.6.8',
+    version='0.0.1',
     description='iarduino.ru module for Raspberry Pi',
     long_description=long_description,
     long_description_content_type="text/markdown",
