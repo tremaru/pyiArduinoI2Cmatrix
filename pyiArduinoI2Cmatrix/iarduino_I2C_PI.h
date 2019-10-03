@@ -75,9 +75,9 @@ class iarduino_I2C: public iarduino_I2C_BASE{                                   
                 bool readBytes(uint8_t addr, uint8_t reg, uint8_t *data, uint8_t sum)
                 {  // аргументы: адрес_модуля, адрес_первого_регистра, указатель_на_массив, количество_байт
                         if (ioctl(file_i2c, I2C_SLAVE, addr) < 0) return false;
-                        else if ((write(file_i2c, &reg, 1) != 1)) return false;
-                        usleep(10);
-                        if (read(file_i2c, data, sum) != sum) return false;
+                        else if ((write(file_i2c, &reg, 1) != 1) && usleep(10)) return false;
+                        //usleep(10);
+                        else if (read(file_i2c, data, sum) != sum) return false;
                         else return true;
                 }
 
