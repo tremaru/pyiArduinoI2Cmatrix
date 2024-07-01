@@ -15,6 +15,7 @@ iarduino_I2C_Matrix_8x8 disp(0x09);                              // Объявл
 void loop(void);
 
 int main(){                                                    //
+	disp.changeBus("/dev/i2c-3");
     delay(500);                                                  // Ждём завершение переходных процессов связанных с подачей питания.
     disp.begin();                                                // Инициируем работу с LED матрицей 8x8.
     disp.drawImage(image);                                       // Выводим на дисплей изображение массива image.

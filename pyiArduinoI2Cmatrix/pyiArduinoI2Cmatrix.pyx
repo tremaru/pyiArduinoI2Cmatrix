@@ -51,69 +51,96 @@ from iarduino_I2C_Matrix_8x8 cimport iarduino_I2C_Matrix_8x8
 from time import sleep
 
 cdef class pyiArduinoI2Cmatrix:
-    cdef iarduino_I2C_Matrix_8x8 c_matrix
+    cdef iarduino_I2C_Matrix_8x8 c_module
 
-    def __cinit__(self, address=None, auto=None):
+    def __cinit__(self, address=None, auto=None, bus=None):
+
+
         if address is not None:
-            self.c_matrix = iarduino_I2C_Matrix_8x8(address)
+
+            self.c_module = iarduino_I2C_Matrix_8x8(address)
+
+            if bus is not None:
+                self.changeBus(bus)
+
             if auto is None:
                 sleep(.5)
-                self.c_matrix.begin()
+                if not self.c_module.begin():
+
+                    print("ошибка инициализации модуля.\n"
+                          "Проверьте подключение и адрес модуля,"
+                          " возможно не включен интерфейс I2C.\n"
+                          " Запустите raspi-config и включите интерфейс"
+                          ", инструкция по включению:"
+                          " https://wiki.iarduino.ru/page/raspberry-i2c-spi/")
+
         else:
-            self.c_matrix = iarduino_I2C_Matrix_8x8()
+
+            self.c_module = iarduino_I2C_Matrix_8x8()
+
+            if bus is not None:
+                self.changeBus(bus)
+
             if auto is None:
                 sleep(.5)
-                self.c_matrix.begin()
+                if not self.c_module.begin():
+
+                    print("ошибка инициализации модуля.\n"
+                          "Проверьте подключение и адрес модуля, "
+                          " возможно не включен интерфейс I2C.\n"
+                          " Запустите raspi-config и включите интерфейс"
+                          ", инструкция по включению:"
+                          " https://wiki.iarduino.ru/page/raspberry-i2c-spi/")
 
     def begin(self):
-        return self.c_matrix.begin()
+        return self.c_module.begin()
 
     def changeAddress(self, unsigned char newAddr):
-        return self.c_matrix.changeAddress(newAddr)
+        return self.c_module.changeAddress(newAddr)
 
     def reset(self):
-        return self.c_matrix.reset()
+        return self.c_module.reset()
 
     def getAddress(self):
-        return self.c_matrix.getAddress()
+        return self.c_module.getAddress()
 
     def getVersion(self):
-        return self.c_matrix.getVersion()
+        return self.c_module.getVersion()
 
     def getCoding(self):
-        return self.c_matrix.getCoding()
+        return self.c_module.getCoding()
 
     def setCoding(self, name):
-        self.c_matrix.setCoding(name)
+        self.c_module.setCoding(name)
 
     def codingDetect(self, letter_p):
         if isinstance(letter_p, str) and len(letter_p) is 1:
-            self.c_matrix.codingDetect(str.encode(letter_p))
+            self.c_module.codingDetect(str.encode(letter_p))
         else:
             print("ошибка: функция принимет только букву 'п'")
 
     def clrScr(self, ani = None):
         if ani is not None:
-            self.c_matrix.clrScr(ani)
+            self.c_module.clrScr(ani)
         else:
-            self.c_matrix.clrScr(0)
+            self.c_module.clrScr(0)
 
     def fillScr(self, ani = None):
         if ani is not None:
-            self.c_matrix.fillScr(ani)
+            self.c_module.fillScr(ani)
         else:
-            self.c_matrix.fillScr(0)
+            self.c_module.fillScr(0)
 
     def invScr(self):
-        self.c_matrix.invScr()
+        self.c_module.invScr()
 
     def drawImage(self, array, ani = None):
         if isinstance(array, list):
             b = bytearray(array)
             if ani is None:
-                self.c_matrix.drawImage(b, 0, 0)
+                self.c_module.drawImage(b, 0, 0)
             elif isinstance(ani, int):
-                self.c_matrix.drawImage(b, ani, 0)
+                self.c_module.drawImage(b, ani, 0)
             else:
                 print("неверен второй аргумент функции: "
                       +" должен быть целым числом\n"
@@ -128,7 +155,7 @@ cdef class pyiArduinoI2Cmatrix:
     def getImage(self):
         image = [0,0,0,0,0,0,0,0]
         b = bytearray(image)
-        self.c_matrix.getImage(b)
+        self.c_module.getImage(b)
         image = list(b)
         return image
 
@@ -158,9 +185,9 @@ cdef class pyiArduinoI2Cmatrix:
         if isinstance(mes, str):
             b = bytearray(mes, "utf-8")
             if ani is None:
-                self.c_matrix.print(b, 0)
+                self.c_module.print(b, 0)
             elif isinstance(ani, int):
-                self.c_matrix.print(b, ani)
+                self.c_module.print(b, ani)
             else:
                 print("неверен второй аргумент функции: "
                       +" должен быть целым числом\n"
@@ -168,9 +195,9 @@ cdef class pyiArduinoI2Cmatrix:
                       + ".print(СТРОКА или ЦЕЛОЕ ЧИСЛО, ЦЕЛОЕ ЧИСЛО)")
         elif isinstance(mes, int):
             if ani is None:
-                self.c_matrix.printNum(mes, 0)
+                self.c_module.printNum(mes, 0)
             elif isinstance(ani, int):
-                self.c_matrix.printNum(mes, ani)
+                self.c_module.printNum(mes, ani)
             else:
                 print("неверен второй аргумент функции: "
                       +" должен быть целым числом\n"
@@ -178,9 +205,9 @@ cdef class pyiArduinoI2Cmatrix:
                       + ".print(СТРОКА или ЦЕЛОЕ ЧИСЛО, ЦЕЛОЕ ЧИСЛО)")
         elif isinstance(mes, float):
             if ani is None:
-                self.c_matrix.printNum(int(mes), 0)
+                self.c_module.printNum(int(mes), 0)
             elif isinstance(ani, int):
-                self.c_matrix.printNum(int(mes), ani)
+                self.c_module.printNum(int(mes), ani)
             else:
                 print("неверен второй аргумент функции: "
                       +" должен быть целым числом\n"
@@ -194,60 +221,63 @@ cdef class pyiArduinoI2Cmatrix:
 
     def autoScroll(self, speed, interval = None):
         if interval is None:
-            self.c_matrix.autoScroll(speed, 0)
+            self.c_module.autoScroll(speed, 0)
         else:
-            self.c_matrix.autoScroll(speed, interval)
+            self.c_module.autoScroll(speed, interval)
 
     def scrollPos(self, position):
-        self.c_matrix.scrollPos(position)
+        self.c_module.scrollPos(position)
 
     def scrollDir(self, direction):
-        self.c_matrix.scrollDir(direction)
+        self.c_module.scrollDir(direction)
 
     def scrollMod(self, mode):
-        self.c_matrix.scrollMod(mode)
+        self.c_module.scrollMod(mode)
 
     def scrollStep(self):
-        self.c_matrix.scrollStep()
+        self.c_module.scrollStep()
 
     def setTimeIdleFirst(self, time):
-        self.c_matrix.setTimeIdleFirst(time)
+        self.c_module.setTimeIdleFirst(time)
 
     def setTimeIdleLast(self, time):
-        self.c_matrix.setTimeIdleLast(time)
+        self.c_module.setTimeIdleLast(time)
 
     def getScroolLen(self):
-        return self.c_matrix.getScroolLen()
+        return self.c_module.getScroolLen()
 
     def getScroolWidth(self):
-        return self.c_matrix.getScroolWidth()
+        return self.c_module.getScroolWidth()
 
     def angle(self, angle):
-        self.c_matrix.angle(angle)
+        self.c_module.angle(angle)
 
     def fps(self, fps):
-        self.c_matrix.fps(fps)
+        self.c_module.fps(fps)
 
     def bright(self, brightness):
-        self.c_matrix.bright(brightness)
+        self.c_module.bright(brightness)
 
     def changeChar(self, sym):
-       self.c_matrix.changeChar(sym) 
+       self.c_module.changeChar(sym) 
 
     def setCharWidth(self, width):
-       self.c_matrix.setCharWidth(width) 
+       self.c_module.setCharWidth(width) 
 
     def setCharInterval(self, interval):
-       self.c_matrix.setCharInterval(interval) 
+       self.c_module.setCharInterval(interval) 
 
     def setCharIndent(self, indent):
-       self.c_matrix.setCharIndent(indent)
+       self.c_module.setCharIndent(indent)
 
     def getCharWidth(self):
-        return self.c_matrix.getCharWidth()
+        return self.c_module.getCharWidth()
 
     def getCharInterval(self):
-        return self.c_matrix.getCharInterval()
+        return self.c_module.getCharInterval()
 
     def getCharIndent(self):
-        return self.c_matrix.getCharIndent()
+        return self.c_module.getCharIndent()
+
+    def changeBus(self, bus):
+        return self.c_module.changeBus(bytes(bus, 'utf-8'))

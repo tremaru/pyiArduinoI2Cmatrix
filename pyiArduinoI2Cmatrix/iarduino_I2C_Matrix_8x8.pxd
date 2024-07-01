@@ -1,3 +1,8 @@
+from libcpp.string cimport string
+
+cdef extern from "iarduino_I2C_PI.cpp":
+    pass
+
 cdef extern from "iarduino_I2C_Matrix_8x8.cpp":
     pass
 
@@ -49,8 +54,4 @@ cdef extern from "iarduino_I2C_Matrix_8x8.h":
         unsigned char getCharInterval()    
         void setCharIndent(unsigned char)  
         unsigned char getCharIndent()  
-
-cdef extern from "iarduino_I2C_PI.h":
-    cdef cppclass iarduino_I2C:
-        void changeBus(unsigned char)
-
+        void changeBus(string)
