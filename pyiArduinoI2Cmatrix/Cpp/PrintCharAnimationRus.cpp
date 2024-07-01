@@ -1,30 +1,34 @@
-// Данный пример выводит символы на Русском языке и с анимацией. //
-                                                                 //
-#include "../iarduino_I2C_Matrix_8x8.h"                             // Подключаем библиотеку для работы с LED матрицей 8x8.
-iarduino_I2C_Matrix_8x8 disp(0x0c);                              // Объявляем объект disp для работы с LED матрицей 8x8, указывая её адрес на шине I2C.
+// Данный пример выводит символы на Русском языке и с анимацией.
+
+#include "../iarduino_I2C_Matrix_8x8.h"
+iarduino_I2C_Matrix_8x8 disp;
 
 void loop(void);
-                                                                 //
-int main() {                                                     //
-    delay(500);                                                  // Ждём завершение переходных процессов связанных с подачей питания.
-    disp.begin();                                                // Инициируем работу с LED матрицей 8x8.
-    disp.codingDetect("п");                                      // Выполняем автоопределение кодировки скетча.
-    for (;;)
-        loop();
-}                                                                //
-                                                                 //
-void loop(){                                                     //
-    disp.print("П", X8_FILLED_TOP);                              // Выводим символ 'П', с анимацией появления снизу-вверх из закрашенного фона.
-    delay(300);                                                  //
-    disp.print("р");                                             // Выводим символ 'р'.
-    delay(300);                                                  //
-    disp.print("и");                                             // Выводим символ 'и'.
-    delay(300);                                                  //
-    disp.print("в");                                             // Выводим символ 'в'.
-    delay(300);                                                  //
-    disp.print("е");                                             // Выводим символ 'е'.
-    delay(300);                                                  //
-    disp.print("т");                                             // Выводим символ 'т', по коду этого символа.
-    delay(300);                                                  //
-    disp.fillScr(X8_TOP);                                        // Заливаем дисплей снизу-вверх.
-}                                                                //
+
+int main(int argc, char** argv) 
+{
+	if (argc > 1)
+		disp.changeBus(argv[1]);
+	delay(500);
+	disp.begin();
+	disp.codingDetect("п");
+	for (;;)
+		loop();
+}
+
+void loop()
+{
+	disp.print("П", X8_FILLED_TOP);
+	delay(300);
+	disp.print("р");
+	delay(300);
+	disp.print("и");
+	delay(300);
+	disp.print("в");
+	delay(300);
+	disp.print("е");
+	delay(300);
+	disp.print("т");
+	delay(300);
+	disp.fillScr(X8_TOP);
+}
