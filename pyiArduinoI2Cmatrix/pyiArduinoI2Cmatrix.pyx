@@ -281,3 +281,14 @@ cdef class pyiArduinoI2Cmatrix:
 
     def changeBus(self, bus):
         return self.c_module.changeBus(bytes(bus, 'utf-8'))
+
+    def getPullI2C(self):
+        return self.c_module.getPullI2C()
+
+    def setPullI2C(self, flag=None):
+        if flag is not None:
+            return self.c_module.setPullI2C(flag)
+        else:
+            return self.c_module.setPullI2C(True)
+
+

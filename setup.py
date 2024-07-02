@@ -6,7 +6,7 @@ def readme():
         return readme.read()
 
 setup(name='pyiArduinoI2Cmatrix',
-    version='1.0.5',
+    version='1.0.6',
     description='iarduino.ru module for Raspberry Pi',
     long_description=readme(),
     classifiers=[

@@ -1,16 +1,11 @@
 #include "iarduino_I2C_PI.h"
 #include <stdexcept>
 
-void iarduino_I2C::begin(uint32_t speed)
+void iarduino_I2C::begin()
 {
         if ((file_i2c = open(filename.c_str(), O_RDWR))<0) {
 		return;
 	}
-	/*
-	else {
-		throw std::ios_base::failure("Cannot open I2C file");
-	}
-	*/
 }
 
 uint8_t iarduino_I2C::readByte(uint8_t adr, uint8_t reg)

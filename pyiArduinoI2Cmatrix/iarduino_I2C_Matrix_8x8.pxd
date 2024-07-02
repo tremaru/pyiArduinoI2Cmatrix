@@ -55,3 +55,5 @@ cdef extern from "iarduino_I2C_Matrix_8x8.h":
         void setCharIndent(unsigned char)  
         unsigned char getCharIndent()  
         void changeBus(string)
+        bint getPullI2C()
+        bint setPullI2C(bint)

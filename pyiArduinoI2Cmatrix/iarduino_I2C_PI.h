@@ -14,7 +14,7 @@
 
 class iarduino_I2C {
         public:
-                void begin(uint32_t speed);
+                void begin();
                 uint8_t readByte(uint8_t adr, uint8_t reg);
                 uint8_t readByte(uint8_t adr);
                 bool writeByte(uint8_t adr, uint8_t reg, uint8_t data);
